@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/cookerPanelWidth"
+    android:layout_height="@dimen/cookerPanelHeight"
+    android:background="@mipmap/cookers_panel_background"
+    android:orientation="vertical"
+    android:soundEffectsEnabled="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:orientation="horizontal"
+        android:soundEffectsEnabled="false">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:soundEffectsEnabled="false">
+
+            <!--  大框 背景-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:soundEffectsEnabled="false">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:soundEffectsEnabled="false">
+
+                    <com.ekek.tftcooker.views.BigRectangleBackGroundView
+                        android:id="@+id/cooker_view_n"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="5dp"
+                        android:soundEffectsEnabled="false"></com.ekek.tftcooker.views.BigRectangleBackGroundView>
+
+                </FrameLayout>
+
+                <!--上框 左上-->
+                <FrameLayout
+                    android:id="@+id/up_left_cooker_framelayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="191dp"
+                    android:layout_gravity="top"
+                    android:soundEffectsEnabled="false">
+
+                    <com.ekek.tftcooker.views.RectangleCookerView
+                        android:id="@+id/cooker_view_up_left"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:b_shape="top_rounded"
+                        android:layout_marginRight="5dp"
+                        android:clickable="true"
+                        android:soundEffectsEnabled="false"></com.ekek.tftcooker.views.RectangleCookerView>
+
+                </FrameLayout>
+                <!-- 中线-->
+                <View
+                    android:id="@+id/left_line_long"
+                    android:layout_width="159dip"
+                    android:layout_height="2dip"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginStart="0dp"
+                    android:background="@android:color/white" />
+                <!--下框 左下-->
+                <FrameLayout
+                    android:id="@+id/down_left_cooker_framelayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="191dp"
+                    android:layout_gravity="bottom"
+                    android:soundEffectsEnabled="false">
+
+                    <com.ekek.tftcooker.views.RectangleCookerView
+                        android:id="@+id/cooker_view_down_left"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:b_shape="bottom_rounded"
+                        android:layout_marginRight="5dp"
+                        android:clickable="true"
+                        android:soundEffectsEnabled="false"></com.ekek.tftcooker.views.RectangleCookerView>
+
+                </FrameLayout>
+
+                <!--中间的数字-->
+                <TextView
+                    android:id="@+id/tv_Left_middle_gear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@color/colorBlue"
+                    android:text="5"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp"
+                    android:visibility="visible" />
+
+                <!--定时或闹铃时显示的档位数值  5  -->
+                <TextView
+                    android:id="@+id/tv_Left_middle_gear_when_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="133dp"
+                    android:text="5"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp"
+                    android:visibility="visible" />
+
+                <!-- 当时或闹铃时显示的时钟值 00:20-->
+                <TextView
+                    android:id="@+id/tv_Left_middle_clock_when_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="195dp"
+                    android:text="00:20"
+                    android:textColor="@android:color/white"
+                    android:textSize="40sp"
+                    android:visibility="visible" />
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+        <!--中间圈圈-->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_weight="1"
+            android:soundEffectsEnabled="false"
+
+            >
+
+            <com.ekek.tftcooker.views.CircularCookerView
+                android:id="@+id/cooker_view_middle"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="0dp"
+                android:clickable="true"
+                android:soundEffectsEnabled="false"></com.ekek.tftcooker.views.CircularCookerView>
+
+
+            <LinearLayout
+                android:layout_width="86dp"
+                android:layout_height="44dp"
+                android:layout_gravity="bottom|center"
+                android:background="@mipmap/cookers_dash_background"></LinearLayout>
+
+        </FrameLayout>
+        <!--右边的框-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:soundEffectsEnabled="false">
+
+            <!--  大框 背景-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="7dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.ekek.tftcooker.views.BigRectangleBackGroundView
+                        android:id="@+id/cooker_view_nn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="5dp"
+
+                        ></com.ekek.tftcooker.views.BigRectangleBackGroundView>
+
+                </FrameLayout>
+
+                <!--上框 右上-->
+                <FrameLayout
+                    android:id="@+id/up_right_cooker_framelayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="191dp"
+                    android:layout_gravity="top"
+                    android:soundEffectsEnabled="false">
+
+                    <com.ekek.tftcooker.views.RectangleCookerView
+                        android:id="@+id/cooker_view_up_right"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:b_shape="top_rounded"
+                        android:layout_marginRight="5dp"
+                        android:clickable="true"
+                        android:soundEffectsEnabled="false"></com.ekek.tftcooker.views.RectangleCookerView>
+
+                </FrameLayout>
+                <!-- 中线-->
+                <View
+                    android:id="@+id/right_line_long"
+                    android:layout_width="152dip"
+                    android:layout_height="2dip"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:background="@android:color/white"
+                    android:visibility="visible" />
+
+                <!--下框 右下-->
+                <FrameLayout
+                    android:id="@+id/down_right_cooker_framelayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="191dp"
+                    android:layout_gravity="bottom"
+                    android:soundEffectsEnabled="false">
+
+                    <com.ekek.tftcooker.views.RectangleCookerView
+                        android:id="@+id/cooker_view_down_right"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:b_shape="bottom_rounded"
+                        android:layout_marginRight="5dp"
+                        android:clickable="true"
+                        android:soundEffectsEnabled="false"></com.ekek.tftcooker.views.RectangleCookerView>
+
+                </FrameLayout>
+
+                <!--中间的数字-->
+                <TextView
+                    android:id="@+id/tv_Right_middle_gear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@color/colorBlue"
+                    android:text="5"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp"
+                    android:visibility="invisible" />
+                <!--定时或闹铃时显示的档位数值-->
+                <TextView
+                    android:id="@+id/tv_Right_middle_gear_when_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="133dp"
+                    android:text="5"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp"
+                    android:visibility="invisible" />
+
+                <!-- 当时或闹铃时显示的时钟值-->
+                <TextView
+                    android:id="@+id/tv_Right_middle_clock_when_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="195dp"
+                    android:text="00:22"
+                    android:textColor="@android:color/white"
+                    android:textSize="40sp"
+                    android:visibility="invisible" />
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <!--<FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.ekek.tftcooker.common.PaintTrackOfTouchView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </FrameLayout>-->
+
+</LinearLayout>

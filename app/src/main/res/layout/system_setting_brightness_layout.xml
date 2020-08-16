@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:soundEffectsEnabled="false">
+
+    <com.ekek.tftcooker.views.QuarterOvalImageView
+        android:id="@+id/ivOk"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        app:vertex_position="top_right"
+        android:src="@null"
+        android:visibility="visible"
+        android:soundEffectsEnabled="false">
+
+    </com.ekek.tftcooker.views.QuarterOvalImageView>
+
+    <RelativeLayout
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/TitleText"
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:paddingStart="@dimen/system_setting_back_left_margin"
+            android:text=""
+            android:drawableLeft="@mipmap/back"
+            android:drawablePadding="25dp"
+            android:paddingBottom="30dp"
+            android:soundEffectsEnabled="false"
+            />
+        <TextView
+            style="@style/TitleText"
+            android:id="@+id/tv_title"
+            android:layout_toEndOf="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_brightness"
+            android:soundEffectsEnabled="false"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/set_to_stop_normal_2"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:drawablePadding="25dp"
+            android:paddingBottom="30dp"
+            android:soundEffectsEnabled="false"
+            android:id="@+id/ok" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="120dp"
+        android:layout_centerInParent="true">
+
+        <com.ekek.tftcooker.views.CircleProgress
+            android:id="@+id/circle_progress"
+            android:layout_width="399dp"
+            android:layout_height="399dp"
+            android:layout_gravity="center"
+            app:antiAlias="true"
+            app:arcWidth="@dimen/xxlarge"
+            app:bgArcColor="@color/colorCircleProgressBackground"
+            app:bgArcWidth="@dimen/xxlarge"
+            app:hint=""
+            app:hintSize="@dimen/text_size_25"
+            app:maxValue="15"
+            app:minValue="0"
+            app:minSelectValue="1"
+            app:startAngle="270"
+            app:sweepAngle="360"
+            app:unit="%"
+            app:unitSize="@dimen/text_size_25"
+            app:value="100"
+            app:valueSize="@dimen/text_size_35"
+            app:noText="true"/>
+      <!--  Brightness-->
+        <TextView
+            android:id="@+id/tv_value_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="130dp"
+            android:text="@string/title_level"
+            android:textColor="@android:color/white"
+            android:textSize="40sp"
+            android:textStyle="normal" />
+        <!--value-->
+        <TextView
+            android:id="@+id/tv_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_value"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="170dp"
+            android:text="0"
+            android:textColor="@android:color/white"
+            android:textSize="100sp"
+            android:textStyle="normal" />
+
+    </FrameLayout>
+
+</RelativeLayout>

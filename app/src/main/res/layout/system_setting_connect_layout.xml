@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:soundEffectsEnabled="false"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/TitleText"
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:paddingStart="@dimen/system_setting_back_left_margin"
+            android:text=""
+            android:drawableLeft="@mipmap/back"
+            android:drawablePadding="25dp"
+            android:paddingBottom="30dp"
+            android:textColor="@android:color/background_light"
+            android:soundEffectsEnabled="false"
+            />
+        <TextView
+            style="@style/TitleText"
+            android:id="@+id/tv_title"
+            android:layout_toEndOf="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_connect"
+            android:soundEffectsEnabled="false"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llHowTo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:soundEffectsEnabled="false"
+        android:orientation="horizontal"
+        android:layout_below="@+id/llTop">
+
+        <TextView
+            style="@style/ItemText"
+            android:id="@+id/tvHowTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/xxxlarge"
+            android:paddingBottom="@dimen/normal"
+            android:soundEffectsEnabled="false"
+            android:text="@string/title_how_to_connect_hood"/>
+    </LinearLayout>
+
+    <!--内容  Hood connection-->
+    <TextView
+        style="@style/ItemText"
+        android:id="@+id/tvHoodConnection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="240dp"
+        android:text="@string/title_hood_connection" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/click_on"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="210dp"
+        android:layout_marginStart="650dp"
+        android:paddingStart="@dimen/xxxlarge"
+        android:paddingEnd="@dimen/xxxlarge"
+        android:src="@mipmap/click_on"
+        android:soundEffectsEnabled="false"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/click_off"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="210dp"
+        android:layout_marginStart="650dp"
+        android:paddingStart="@dimen/xxxlarge"
+        android:paddingEnd="@dimen/xxxlarge"
+        android:src="@mipmap/click_off"
+        android:soundEffectsEnabled="false" />
+
+    <!--内容   devices-->
+    <TextView
+        android:id="@+id/devices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="260dp"
+        android:layout_marginStart="110dp"
+        android:text=""
+        android:textSize="35dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/background_light" />
+
+    <!--线-->
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentStart="true"
+    android:layout_marginTop="380dp"
+    android:layout_marginStart="30dp"
+    android:src="@mipmap/dot_line"
+    android:id="@+id/dot_line"
+    />
+
+
+    <!--内容   cata hood-->
+    <TextView
+        android:id="@+id/cata_hood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="450dp"
+        android:layout_marginStart="100dp"
+        android:text=""
+        android:textSize="35dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/background_light" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/set_to_stop_normal_2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/ok"
+        android:visibility="invisible"
+        />
+
+
+</RelativeLayout>

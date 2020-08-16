@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorCircleProgress">#ffd84824</color>
+    <color name="colorCircleProgressBackground">#ff29292b</color>
+    <color name="colorOrange">#ffeb7749</color>
+    <color name="colorBlue">#1593d2</color>
+    <color name="colorWhite">#ffffffff</color>
+    <color name="colorGreen">#ff23b875</color>
+    <color name="mybluecolor">#001593d2</color>
+
+    <color name="viewmodule_white">#FFFF</color>
+    <color name="viewmodule_pomegranate">#f4511e</color>
+
+    <color name="black70">#B3000000</color>
+
+    <color name="debug_info_1">#1593d2</color>
+    <color name="debug_info_2">#23b875</color>
+</resources>

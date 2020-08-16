@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/cl_hob_intro"
+    android:clickable="true"
+    android:soundEffectsEnabled="false"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.ekek.tftcooker.time.DigitalClockViewEx
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:viewmodule_digitalTimeTextSize="220sp"
+        app:viewmodule_digitalTimeTextColor="@android:color/white"
+        app:viewmodule_digitalDateTextSize="90sp"
+        app:viewmodule_digitalDateTextColor="@android:color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:soundEffectsEnabled="false"
+        android:id="@+id/dcv"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/logo_cariny"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="29dp"
+        android:id="@+id/iv_logo"
+        android:visibility="visible"
+        />
+
+ <!--   <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_high_temp_normal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/iv_hob_status"
+        android:visibility="invisible"
+        />-->
+
+   <!-- <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/hood"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+        />-->
+
+</android.support.constraint.ConstraintLayout>

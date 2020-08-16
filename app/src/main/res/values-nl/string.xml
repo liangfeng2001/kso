@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TFTCookerKSO90</string>
+
+    <string name="hint_level">Niveau</string>
+    <string name="hint_extraction">Extractie</string>
+    <string name="hint_timer">Timer</string>
+    <string name="hint_brightness">Helderheid</string>
+
+    <string name="title_settings">Instellingen</string>
+    <string name="title_time">Tijd</string>
+    <string name="title_date">Datum</string>
+    <string name="title_language">Taal</string>
+    <string name="title_brightness">Helderheid</string>
+    <string name="title_volume">Volume</string>
+    <string name="title_reset">Reset</string>
+    <string name="title_connect">Verbinden</string>
+    <string name="title_stand_by">Stand-by</string>
+    <string name="title_filter">Filter</string>
+
+    <string name="title_level">Niveau</string>
+    <string name="title_auto_short">A</string>
+    <string name="title_hood_connection">Afzuigkapverbinding</string>
+    <string name="title_how_to_connect_hood">Hoe verbinden met afzuigkap</string>
+    <string name="title_minutes">Minuten</string>
+    <string name="title_restore_default_setting">Op standaardinstellingen terugzetten.</string>
+    <string name="title_software_version">Software Version :&#160;&#160;</string>
+    <string name="title_model">Model :&#160;&#160;</string>
+    <string name="title_version_display">System Version :&#160;&#160;</string>
+    <string name="title_bluetooth">Bluetooth Address :&#160;&#160;</string>
+
+    <string name="title_h">H</string>
+    <string name="title_boost_short">B</string>
+
+    <string name="title_paused" >Onderbroken</string>
+    <string name="title_demo_mode">Demonstratiemodus</string>
+    <string name="title_debug_mode">Debug Mode</string>
+
+    <string name="title_destination_software">Destination version: %1$s Total Size: %2$d bytes</string>
+
+    <string name="msg_timer_complete">Timer voltooid</string>
+    <string name="msg_time_set">Tijd instellen</string>
+    <string name="msg_date_set">Datum instellen</string>
+    <string name="msg_language_set">Taal instellen</string>
+    <string name="msg_brightness_set">Helderheid instellen</string>
+    <string name="msg_default_restored">Default setting restored</string>
+    <string name="msg_stand_by_set">Stand-by instellen</string>
+    <string name="msg_hood_connected">Verbonden met afzuigkap</string>
+    <string name="msg_volume_set">Volume instellen</string>
+    <string name="msg_filter_set">Type installatie instellen</string>
+
+    <string name="msg_cookware_not_detected">Kookgerei\nniet gedetecteerd</string>
+
+    <string name="msg_enable_hood_connection">Zie uw gebruiksaanwijzing voor\nhet verbinden van uw afzuigkap</string>
+
+    <string name="msg_aluminium_filter_warn">Reinigen van de aluminium\nfilter wordt aangeraden</string>
+    <string name="msg_carbon_filter_warn">Vervangen van koolstoffilter\nwordt aangeraden</string>
+
+    <string name="msg_confirm_demo_mode">Bevestig als u de demomodus wilt inschakelen</string>
+    <string name="msg_demo_mode_activated">Software voor demomodus is geactiveerd</string>
+    <string name="msg_confirm_normal_mode">Bevestig als u de demomodus wilt uitschakelen</string>
+    <string name="msg_normal_mode_activated">Software voor normale werkingsmodus is geactiveerd voor algemeen gebruik en koken</string>
+
+    <string name="msg_downloading_apk">Downloading the apk file &#8230;&#8230;&#8230;</string>
+    <string name="msg_download_complete">Downloading process completed successfully</string>
+
+    <string name="month_jan">Januari</string>
+    <string name="month_feb">Februari</string>
+    <string name="month_mar">Maart</string>
+    <string name="month_apr">April</string>
+    <string name="month_may">Mei</string>
+    <string name="month_jun">Juni</string>
+    <string name="month_jul">Juli</string>
+    <string name="month_aug">Augustus</string>
+    <string name="month_sep">September</string>
+    <string name="month_oct">Oktober</string>
+    <string name="month_nov">November</string>
+    <string name="month_dec">December</string>
+
+    <string name="week_sun">Zondag</string>
+    <string name="week_mon">Maandag</string>
+    <string name="week_tue">Dinsdag</string>
+    <string name="week_wed">Woensdag</string>
+    <string name="week_thu">Donderdag</string>
+    <string name="week_fri">Vrijdag</string>
+    <string name="week_sat">Zaterdag</string>
+
+    <string name="day_1">1st</string>
+    <string name="day_2">2nd</string>
+    <string name="day_3">3rd</string>
+    <string name="day_4">4th</string>
+    <string name="day_5">5th</string>
+    <string name="day_6">6th</string>
+    <string name="day_7">7th</string>
+    <string name="day_8">8th</string>
+    <string name="day_9">9th</string>
+    <string name="day_10">10th</string>
+    <string name="day_11">11th</string>
+    <string name="day_12">12th</string>
+    <string name="day_13">13th</string>
+    <string name="day_14">14th</string>
+    <string name="day_15">15th</string>
+    <string name="day_16">16th</string>
+    <string name="day_17">17th</string>
+    <string name="day_18">18th</string>
+    <string name="day_19">19th</string>
+    <string name="day_20">20th</string>
+    <string name="day_21">21st</string>
+    <string name="day_22">22nd</string>
+    <string name="day_23">23rd</string>
+    <string name="day_24">24th</string>
+    <string name="day_25">25th</string>
+    <string name="day_26">26th</string>
+    <string name="day_27">27th</string>
+    <string name="day_28">28th</string>
+    <string name="day_29">29th</string>
+    <string name="day_30">30th</string>
+    <string name="day_31">31st</string>
+
+    <string name="err_er03_title">Water of pan op het glas over de bediening</string>
+    <string name="err_er03_content">Reinig de gebruikersinterface</string>
+
+    <string name="err_e1_title">Temperatuursensor van de IGBT is hoog(%1$s)</string>
+    <string name="err_e1_content">Start opnieuw nadat de inductiekookplaat is afgekoeld.</string>
+    <string name="err_e1">E1</string>
+
+    <string name="err_e2_title">Temperatuursensor van de IGBT is hoog(%1$s)</string>
+    <string name="err_e2_content">Start opnieuw nadat de inductiekookplaat is afgekoeld.</string>
+    <string name="err_e2">E2</string>
+
+    <string name="err_e3_title">Abnormale voedingsspanning (te hoog)(%1$s)</string>
+    <string name="err_e3_content">Controleer of stroomvoorziening normaal is;\nSchakel het apparaat in zodra de stroomvoorziening normaal is.</string>
+    <string name="err_e3">E3</string>
+
+    <string name="err_e4_title">Abnormale voedingsspanning (te laag)(%1$s)</string>
+    <string name="err_e4_content">Controleer of stroomvoorziening normaal is;\nSchakel het apparaat in zodra de stroomvoorziening normaal is.</string>
+    <string name="err_e4">E4</string>
+
+    <string name="err_e5_title">Temperatuursensor is defect (de kookzone waar de indicator “E” aangeeft)(%1$s)</string>
+    <string name="err_e5_content">Aansluitkabel niet juist aangesloten of verkeerde montage;</string>
+    <string name="err_e5">E5</string>
+
+    <string name="err_f1_title">De aansluiting tussen het mededelingenbord en het linker moederbord is mislukt(%1$s)</string>
+    <string name="err_f1_content">1. Aansluitkabel is niet juist aangesloten of defect;\n2. Vervang het moederbord.</string>
+    <string name="err_f1">F1</string>
+
+    <string name="err_f3_title">Temperatuursensor van spoel is defect(%1$s)</string>
+    <string name="err_f3_content">Vervang de spoelsensor.</string>
+    <string name="err_f3">F3</string>
+
+    <string name="err_f4_title">Temperatuursensor van moederbord is defect(%1$s)</string>
+    <string name="err_f4_content">Vervang het moederbord</string>
+    <string name="err_f4">F4</string>
+
+</resources>

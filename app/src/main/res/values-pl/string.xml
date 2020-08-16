@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TFTCookerKSO90</string>
+
+    <string name="hint_level">Poziom</string>
+    <string name="hint_extraction">Ekstrakcja</string>
+    <string name="hint_timer">Programator czasowy</string>
+    <string name="hint_brightness">Jaskrawość</string>
+
+    <string name="title_settings">Ustawienia</string>
+    <string name="title_time">Czas</string>
+    <string name="title_date">Data</string>
+    <string name="title_language">Język</string>
+    <string name="title_brightness">Jaskrawość</string>
+    <string name="title_volume">Głośność</string>
+    <string name="title_reset">Zresetuj</string>
+    <string name="title_connect">Połącz</string>
+    <string name="title_stand_by">Czuwanie</string>
+    <string name="title_filter">Filtr</string>
+
+    <string name="title_level">Poziom</string>
+    <string name="title_auto_short">A</string>
+    <string name="title_hood_connection">Złącze okapu</string>
+    <string name="title_how_to_connect_hood">Jak podłączyć okap</string>
+    <string name="title_minutes">Minuty</string>
+    <string name="title_restore_default_setting">Przywracanie ustawień domyślnych.</string>
+    <string name="title_software_version">Software Version :&#160;&#160;</string>
+    <string name="title_model">Model :&#160;&#160;</string>
+    <string name="title_version_display">System Version :&#160;&#160;</string>
+    <string name="title_bluetooth">Bluetooth Address :&#160;&#160;</string>
+
+    <string name="title_h">H</string>
+    <string name="title_boost_short">B</string>
+
+    <string name="title_paused" >Wstrzymanie</string>
+    <string name="title_demo_mode">Tryb demonstracyjny</string>
+    <string name="title_debug_mode">Debug Mode</string>
+
+    <string name="title_destination_software">Destination version: %1$s Total Size: %2$d bytes</string>
+
+    <string name="msg_timer_complete">Odliczanie zakończone</string>
+    <string name="msg_time_set">Ustawianie czasu</string>
+    <string name="msg_date_set">Ustawianie daty</string>
+    <string name="msg_language_set">Ustawianie języka</string>
+    <string name="msg_brightness_set">Ustawianie jaskrawości</string>
+    <string name="msg_default_restored">Ustawienia domyślne przywrócone</string>
+    <string name="msg_stand_by_set">Ustawianie czuwania</string>
+    <string name="msg_hood_connected">Podłączony do okapu</string>
+    <string name="msg_volume_set">Ustawianie głośności</string>
+    <string name="msg_filter_set">Typ zestawu montażowego</string>
+
+    <string name="msg_cookware_not_detected">Naczynia nie \nzostały wykryte</string>
+
+    <string name="msg_enable_hood_connection">Odnośnie podłączenia okapu \npatrz instrukcja obsługi</string>
+
+    <string name="msg_aluminium_filter_warn">Zaleca się czyszczenie filtra aluminiowego</string>
+    <string name="msg_carbon_filter_warn">Zaleca się wymianę filtra węglowego</string>
+
+    <string name="msg_confirm_demo_mode">Potwierdź, jeśli chcesz włączyć tryb demonstracyjny</string>
+    <string name="msg_demo_mode_activated">Uaktywniono oprogramowanie trybu demonstracyjnego</string>
+    <string name="msg_confirm_normal_mode">Potwierdź, jeśli chcesz wyłączyć tryb demonstracyjny</string>
+    <string name="msg_normal_mode_activated">Uaktywniono oprogramowanie normalnego trybu pracy do zwykłego użytkowania i gotowania</string>
+
+    <string name="msg_downloading_apk">Downloading the apk file &#8230;&#8230;&#8230;</string>
+    <string name="msg_download_complete">Downloading process completed successfully</string>
+
+    <string name="month_jan">Styczeń</string>
+    <string name="month_feb">Luty</string>
+    <string name="month_mar">Marzec</string>
+    <string name="month_apr">Kwiecień</string>
+    <string name="month_may">Maj</string>
+    <string name="month_jun">Czerwiec</string>
+    <string name="month_jul">Lipiec</string>
+    <string name="month_aug">Sierpień</string>
+    <string name="month_sep">Wrzesień</string>
+    <string name="month_oct">Październik</string>
+    <string name="month_nov">Listopad</string>
+    <string name="month_dec">Grudzień</string>
+
+    <string name="week_sun">Niedziela</string>
+    <string name="week_mon">Poniedziałek</string>
+    <string name="week_tue">Wtorek</string>
+    <string name="week_wed">Środa</string>
+    <string name="week_thu">Czwartek</string>
+    <string name="week_fri">Piątek</string>
+    <string name="week_sat">Sobota</string>
+
+    <string name="day_1">1</string>
+    <string name="day_2">2</string>
+    <string name="day_3">3</string>
+    <string name="day_4">4</string>
+    <string name="day_5">5</string>
+    <string name="day_6">6</string>
+    <string name="day_7">7</string>
+    <string name="day_8">8</string>
+    <string name="day_9">9</string>
+    <string name="day_10">10</string>
+    <string name="day_11">11</string>
+    <string name="day_12">12</string>
+    <string name="day_13">13</string>
+    <string name="day_14">14</string>
+    <string name="day_15">15</string>
+    <string name="day_16">16</string>
+    <string name="day_17">17</string>
+    <string name="day_18">18</string>
+    <string name="day_19">19</string>
+    <string name="day_20">20</string>
+    <string name="day_21">21</string>
+    <string name="day_22">22</string>
+    <string name="day_23">23</string>
+    <string name="day_24">24</string>
+    <string name="day_25">25</string>
+    <string name="day_26">26</string>
+    <string name="day_27">27</string>
+    <string name="day_28">28</string>
+    <string name="day_29">29</string>
+    <string name="day_30">30</string>
+    <string name="day_31">31</string>
+
+    <string name="err_er03_title">Woda lub naczynie na szkle nad elementami sterującymi</string>
+    <string name="err_er03_content">Wyczyścić interfejs użytkownika</string>
+
+    <string name="err_e1_title">Wysoka temperatura czujnika IGBT(%1$s)</string>
+    <string name="err_e1_content">Proszę uruchomić ponownie po ostygnięciu płyty.</string>
+    <string name="err_e1">E1</string>
+
+    <string name="err_e2_title">Wysoka temperatura czujnika IGBT(%1$s)</string>
+    <string name="err_e2_content">Proszę uruchomić ponownie po ostygnięciu płyty.</string>
+    <string name="err_e2">E2</string>
+
+    <string name="err_e3_title">Nienormalne napięcie zasilania (za wysokie)(%1$s)</string>
+    <string name="err_e3_content">Sprawdzić, czy zasilanie jest prawidłowe;\nWłączyć, gdy zasilanie będzie normalne.</string>
+    <string name="err_e3">E3</string>
+
+    <string name="err_e4_title">Nienormalne napięcie zasilania (za niskie)(%1$s)</string>
+    <string name="err_e4_content">Sprawdzić, czy zasilanie jest prawidłowe;\nWłączyć, gdy zasilanie będzie normalne.</string>
+    <string name="err_e4">E4</string>
+
+    <string name="err_e5_title">Błąd czujnika temperatury (strefy, której wskaźnik pokazuje literę „E”)(%1$s)</string>
+    <string name="err_e5_content">Źle podłączony kabel lub wadliwy montaż;</string>
+    <string name="err_e5">E5</string>
+
+    <string name="err_f1_title">Błąd połączenia między płytą wyświetlacza i lewą płytą główną(%1$s)</string>
+    <string name="err_f1_content">1. Kabel nieprawidłowo podłączony lub uszkodzony;\n2. Wymienić płytę główną.</string>
+    <string name="err_f1">F1</string>
+
+    <string name="err_f3_title">Wadliwy czujnik temperatury cewki.(%1$s)</string>
+    <string name="err_f3_content">Wymienić czujnik cewki.</string>
+    <string name="err_f3">F3</string>
+
+    <string name="err_f4_title">Wadliwy czujnik temperatury płyty głównej.(%1$s)</string>
+    <string name="err_f4_content">Wymienić płytę główną</string>
+    <string name="err_f4">F4</string>
+</resources>

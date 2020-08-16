@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/shape_circular_corner_black"
+    android:id="@+id/ll_circular_view"
+    android:gravity="center"
+    android:layout_height="match_parent"
+    android:soundEffectsEnabled="false">
+
+    <!-- 当时或闹铃时显示的时钟值-->
+  <!--  <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_Right_middle_clock_when_timer"
+        android:textSize="40sp"
+        android:text="00:21"
+        android:textColor="@android:color/white"
+        android:visibility="visible"
+
+        />-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_gear"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/cooker_gear_text"
+        android:text="0"
+
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_timer"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/cooker_timer_text"
+        android:text="00:35"
+
+        />
+    <!--定时或闹铃时显示的档位数值-->
+ <!--   <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_Right_middle_gear_when_timer"
+        android:textSize="50sp"
+        android:text="5"
+        android:textColor="@android:color/white"
+        android:visibility="visible"
+        />-->
+
+</LinearLayout>

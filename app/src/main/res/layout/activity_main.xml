@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/wallpaper"
+    tools:context="com.ekek.tftcooker.MainActivity">
+    <!-- <FrameLayout
+        android:layout_width="510dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginStart="165dp"
+        android:background="@null">
+
+        <com.ekek.tftcooker.common.PaintTrackOfTouchView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/PaintTrackOfTouchView"
+            />
+        &lt;!&ndash; <com.ekek.tftcooker.common.PatternLockView
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:id="@+id/pattern_lock_view"
+             app:viewmodule_pathWidth="10dp"
+             app:viewmodule_dotNormalSize="24dp"
+             android:background="@null"
+             android:clickable="false"
+             />&ndash;&gt;
+    </FrameLayout>-->
+
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="35dp"
+        android:soundEffectsEnabled="false">
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <com.ekek.tftcooker.views.QuarterOvalImageView
+            android:id="@+id/ivMenu"
+            android:layout_width="120dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            app:vertex_position="top_left"
+            android:src="@null"
+            android:visibility="visible"
+            android:soundEffectsEnabled="false">
+
+        </com.ekek.tftcooker.views.QuarterOvalImageView>
+
+        <LinearLayout
+            android:id="@+id/llDebugInfo"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            android:layout_marginTop="88dp">
+
+
+            <TextView
+                android:id="@+id/tvPowerSignal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/debug_info_1"
+                android:textSize="@dimen/debug_info_text_size"/>
+
+            <TextView
+                android:id="@+id/tvDataReceivedA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/debug_info_2"
+                android:textSize="@dimen/debug_info_text_size"/>
+
+            <TextView
+                android:id="@+id/tvDataReceivedB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/debug_info_1"
+                android:textSize="@dimen/debug_info_text_size"/>
+            <TextView
+                android:id="@+id/tvDataReceivedC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/debug_info_2"
+                android:textSize="@dimen/debug_info_text_size"/>
+
+            <TextView
+                android:id="@+id/tvDataReceivedD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/debug_info_1"
+                android:textSize="@dimen/debug_info_text_size"/>
+            <TextView
+                android:id="@+id/tvDataReceivedE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/debug_info_2"
+                android:textSize="@dimen/debug_info_text_size"/>
+
+            <TextView
+                android:id="@+id/tvDataReceivedF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/debug_info_1"
+                android:textSize="@dimen/debug_info_text_size"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
+
+            <TextView
+                android:id="@+id/tvDebugInfoA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/debug_info_1"
+                android:textSize="@dimen/debug_info_text_size"/>
+            <TextView
+                android:id="@+id/tvDebugInfoB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/debug_info_2"
+                android:textSize="@dimen/debug_info_text_size"/>
+            <TextView
+                android:id="@+id/tvDebugInfoC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/debug_info_1"
+                android:textSize="@dimen/debug_info_text_size"/>
+            <TextView
+                android:id="@+id/tvDebugInfoD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/debug_info_2"
+                android:textSize="@dimen/debug_info_text_size"/>
+            <TextView
+                android:id="@+id/tvDebugInfoE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/debug_info_1"
+                android:textSize="@dimen/debug_info_text_size"/>
+            <TextView
+                android:id="@+id/tvDebugInfoF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/debug_info_2"
+                android:textSize="@dimen/debug_info_text_size"/>
+            <TextView
+                android:id="@+id/tvDebugInfoBluetooth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/debug_info_1"
+                android:textSize="@dimen/debug_info_text_size"/>
+            <TextView
+                android:id="@+id/tvDebugInfoHood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/debug_info_2"
+                android:textSize="@dimen/debug_info_text_size"/>
+            <TextView
+                android:id="@+id/tvDebugInfoLight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/debug_info_1"
+                android:textSize="@dimen/debug_info_text_size"/>
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/ib_menu"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="left|top"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:soundEffectsEnabled="false"
+            android:src="@drawable/btn_menu" />
+
+        <com.ekek.tftcooker.views.QuarterOvalImageView
+            android:id="@+id/ivPowerOff"
+            android:layout_width="140dp"
+            android:layout_height="200dp"
+            android:layout_gravity="right|top"
+            android:scaleType="centerCrop"
+            app:vertex_position="top_right"
+            android:src="@null"
+            android:visibility="invisible"
+            android:soundEffectsEnabled="false">
+
+        </com.ekek.tftcooker.views.QuarterOvalImageView>
+
+        <ImageButton
+            android:id="@+id/ib_power_off"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="right|top"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:soundEffectsEnabled="false"
+            android:src="@drawable/btn_power_off"
+            android:visibility="invisible"
+
+            />
+
+    </FrameLayout>
+    <!--系统设置的背景-->
+    <FrameLayout
+        android:id="@+id/background_system"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/background"
+
+            />
+
+        <TextView
+            android:id="@+id/tv_content_system"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:soundEffectsEnabled="false"
+            android:text="@string/msg_timer_complete"
+            android:textColor="@android:color/background_light"
+            android:textAlignment="center"
+            android:textSize="40dp" />
+
+        <ImageView
+            android:id="@+id/gou_system"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="95dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:soundEffectsEnabled="false"
+            android:src="@mipmap/set_to_stop_small"
+            android:visibility="invisible" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/flErrorMessagePanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/background" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvErrorMessageTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:soundEffectsEnabled="false"
+                android:text=""
+                android:textColor="@android:color/background_light"
+                android:textAlignment="center"
+                android:textSize="40dp" />
+            <TextView
+                android:id="@+id/tvErrorMessageContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:soundEffectsEnabled="false"
+                android:text=""
+                android:textColor="@android:color/background_light"
+                android:textAlignment="center"
+                android:textSize="40dp" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!--定时的 背景-->
+    <FrameLayout
+        android:id="@+id/background_timer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:soundEffectsEnabled="false"
+        android:visibility="invisible">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:soundEffectsEnabled="false"
+            android:src="@color/black70"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:soundEffectsEnabled="false"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/tv_content_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:soundEffectsEnabled="false"
+                android:text="@string/msg_timer_complete"
+                android:textColor="@android:color/background_light"
+                android:textSize="40sp" />
+
+            <ImageView
+                android:id="@+id/gou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/normal"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:soundEffectsEnabled="false"
+                android:src="@mipmap/set_to_stop_normal_2"
+                android:visibility="invisible" />
+        </LinearLayout>
+    </FrameLayout>
+    <!--暂停背景-->
+    <FrameLayout
+        android:id="@+id/framelayout_background_pause"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black70"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/IV_background_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:soundEffectsEnabled="false"
+            android:visibility="visible"
+            android:src="@mipmap/pause2" />
+
+    </FrameLayout>
+
+    <!--  背景 锁按键-->
+    <FrameLayout
+        android:id="@+id/framelayout_background_lock"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black70"
+        android:visibility="invisible">
+
+        <TextView
+            android:id="@+id/IV_background_lock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableTop="@mipmap/lock2"
+            android:visibility="visible"
+            android:soundEffectsEnabled="false" />
+        <TextView
+            android:id="@+id/IV_background_lock_countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-48dp"
+            android:layout_gravity="center"
+            android:drawableBottom="@mipmap/lock3"
+            android:soundEffectsEnabled="false"
+            android:visibility="invisible"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="@dimen/timer_text_selected"/>
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="510dp"
+            android:layout_height="400dp"
+            android:layout_marginStart="165dp"
+            android:layout_marginTop="75dp"
+            android:background="@null">
+
+            <com.ekek.tftcooker.common.PatternLockView
+                android:id="@+id/pattern_lock_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp"
+                android:background="@null"
+                android:clickable="false"
+                android:visibility="gone"
+                app:viewmodule_dotNormalSize="24dp"
+                app:viewmodule_pathWidth="20dp"
+                app:viewmodule_ignored_dots="1,3,5,7"/>
+
+            <com.ekek.tftcooker.common.PatternLockView
+                android:id="@+id/plvASKF"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp"
+                android:background="@null"
+                android:clickable="false"
+                android:visibility="gone"
+                app:viewmodule_dotNormalSize="24dp"
+                app:viewmodule_pathWidth="20dp"
+                app:viewmodule_ignored_dots="1,3,4,5,7" />
+
+            <com.ekek.tftcooker.common.PatternLockView
+                android:id="@+id/plvKF60"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:background="@null"
+                android:clickable="false"
+                android:visibility="gone"
+                app:viewmodule_dotNormalSize="24dp"
+                app:viewmodule_pathWidth="20dp"
+                app:viewmodule_ignored_dots="1,3,4,5,7" />
+
+            <com.ekek.tftcooker.common.PatternLockView
+                android:id="@+id/plvKF80"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp"
+                android:background="@null"
+                android:clickable="false"
+                android:visibility="gone"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                app:viewmodule_dotNormalSize="24dp"
+                app:viewmodule_pathWidth="20dp"
+                app:viewmodule_ignored_dots="2,3,4,5,7"
+                app:viewmodule_dot_offsets="0,1,60,20,2,2,0,10"/>
+
+            <com.ekek.tftcooker.common.PatternLockView
+                android:id="@+id/plvKF8060"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp"
+                android:background="@null"
+                android:clickable="false"
+                android:visibility="gone"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                app:viewmodule_dotNormalSize="24dp"
+                app:viewmodule_pathWidth="20dp"
+                app:viewmodule_ignored_dots="2,3,4,5,7,8"
+                app:viewmodule_dot_offsets="0,1,60,20"/>
+        </FrameLayout>
+
+    </FrameLayout>
+
+
+</android.support.constraint.ConstraintLayout>

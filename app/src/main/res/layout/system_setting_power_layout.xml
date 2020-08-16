@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:soundEffectsEnabled="false"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.ekek.tftcooker.views.QuarterOvalImageView
+        android:id="@+id/ivOk"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        app:vertex_position="top_right"
+        android:src="@null"
+        android:visibility="visible"
+        android:soundEffectsEnabled="false">
+
+    </com.ekek.tftcooker.views.QuarterOvalImageView>
+
+    <RelativeLayout
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/TitleText"
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:paddingStart="@dimen/system_setting_back_left_margin"
+            android:text=""
+            android:drawableLeft="@mipmap/back"
+            android:drawablePadding="25dp"
+            android:paddingBottom="30dp"
+            android:soundEffectsEnabled="false"
+            />
+        <TextView
+            style="@style/TitleText"
+            android:id="@+id/tv_title"
+            android:layout_toEndOf="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_stand_by"
+            android:soundEffectsEnabled="false"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/set_to_stop_normal_2"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:drawablePadding="25dp"
+            android:paddingBottom="30dp"
+            android:soundEffectsEnabled="false"
+            android:id="@+id/ok" />
+    </RelativeLayout>
+
+    <!--功率列表  -->
+    <FrameLayout
+        android:id="@+id/FramelayoutTemp_FrameLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="500dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="60dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="450dp"
+
+        android:background="@null"
+        >
+        <com.ekek.tftcooker.common.NumberPickerView
+            android:id="@+id/set_power"
+            android:layout_width="wrap_content"
+            android:layout_height="400dp"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            app:npv_RespondChangeOnDetached="false"
+            app:npv_ShowCount="5"
+            app:npv_ShowDivider="false"
+            app:npv_TextColorNormal="#55ffffff"
+            app:npv_TextColorSelected="@android:color/white"
+            app:npv_TextSizeNormal="50sp"
+            app:npv_TextSizeSelected="90sp"
+            app:npv_WrapSelectorWheel="true" />
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="620dp"
+        android:layout_centerVertical="true"
+        android:text="@string/title_minutes"
+        android:textSize="40dp"
+        android:textColor="@android:color/background_light"
+        android:id="@+id/minutes"/>
+
+</RelativeLayout>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    android:soundEffectsEnabled="false">
+
+    <RelativeLayout
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:paddingStart="@dimen/system_setting_back_left_margin"
+            android:text=""
+            android:textSize="45dp"
+            android:textStyle="bold"
+            android:drawableLeft="@mipmap/back"
+            android:drawablePadding="25dp"
+            android:paddingBottom="30dp"
+            android:textColor="@android:color/background_light"
+            android:soundEffectsEnabled="false"
+            />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_toEndOf="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_settings"
+            android:textSize="45dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/background_light"
+            android:soundEffectsEnabled="false"/>
+    </RelativeLayout>
+<!--第一行-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginTop="80dp"
+        android:layout_below="@+id/llTop"
+        android:id="@+id/FrameLayout_first_row"
+        android:soundEffectsEnabled="false"
+        >
+        <!-- Language -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:drawableTop="@mipmap/setting_language"
+            android:paddingTop="0dp"
+            android:drawablePadding="30dp"
+            android:id="@+id/Language"
+
+            android:soundEffectsEnabled="false"
+            />
+
+        <!-- Date -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:drawableTop="@mipmap/setting_date"
+            android:paddingTop="0dp"
+            android:drawablePadding="25dp"
+            android:id="@+id/Date"
+            android:soundEffectsEnabled="false"
+            />
+
+        <!-- Time -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="left"
+            android:textColor="@android:color/white"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:drawableTop="@mipmap/setting_time"
+            android:drawablePadding="31dp"
+            android:paddingTop="0dp"
+            android:id="@+id/Time"
+
+            android:background="@null"
+            android:soundEffectsEnabled="false"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:drawableTop="@mipmap/setting_brightness"
+            android:paddingTop="0dp"
+            android:drawablePadding="31dp"
+            android:id="@+id/Brightness"
+
+            android:soundEffectsEnabled="false"
+            />
+
+    </LinearLayout>
+<!--第二行-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginTop="55dp"
+        android:layout_below="@+id/FrameLayout_first_row"
+        android:soundEffectsEnabled="false"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:drawableTop="@mipmap/setting_volume"
+            android:paddingTop="10dp"
+            android:drawablePadding="35dp"
+            android:id="@+id/Volume"
+
+            android:background="@null"
+            android:soundEffectsEnabled="false"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:drawableTop="@mipmap/setting_reset"
+            android:paddingTop="5dp"
+            android:drawablePadding="30dp"
+            android:id="@+id/Reset"
+
+            android:soundEffectsEnabled="false"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="36sp"
+            android:textStyle="bold"
+
+            android:drawableTop="@mipmap/setting_connect"
+            android:paddingTop="0dp"
+            android:drawablePadding="31dp"
+            android:id="@+id/Connect"
+            android:soundEffectsEnabled="false"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="36sp"
+            android:textStyle="bold"
+
+            android:drawableTop="@mipmap/setting_powerusage"
+            android:paddingTop="0dp"
+            android:drawablePadding="22dp"
+            android:id="@+id/Power_usage"
+            android:soundEffectsEnabled="false"
+            />
+
+    </LinearLayout>
+</RelativeLayout>

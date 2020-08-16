@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="viewmodule_week">
+        <item>@string/week_sun</item>
+        <item>@string/week_mon</item>
+        <item>@string/week_tue </item>
+        <item>@string/week_wed</item>
+        <item>@string/week_thu</item>
+        <item>@string/week_fri</item>
+        <item>@string/week_sat</item>
+    </string-array>
+
+    <string-array name="viewmodule_month">
+        <item>@string/month_jan</item>
+        <item>@string/month_feb</item>
+        <item>@string/month_mar</item>
+        <item>@string/month_apr</item>
+        <item>@string/month_may</item>
+        <item>@string/month_jun</item>
+        <item>@string/month_jul</item>
+        <item>@string/month_aug</item>
+        <item>@string/month_sep</item>
+        <item>@string/month_oct</item>
+        <item>@string/month_nov</item>
+        <item>@string/month_dec</item>
+    </string-array>
+
+    <string-array name="viewmodule_day">
+        <item>@string/day_1</item>
+        <item>@string/day_2</item>
+        <item>@string/day_3</item>
+        <item>@string/day_4</item>
+        <item>@string/day_5</item>
+        <item>@string/day_6</item>
+        <item>@string/day_7</item>
+        <item>@string/day_8</item>
+        <item>@string/day_9</item>
+        <item>@string/day_10</item>
+        <item>@string/day_11</item>
+        <item>@string/day_12</item>
+        <item>@string/day_13</item>
+        <item>@string/day_14</item>
+        <item>@string/day_15</item>
+        <item>@string/day_16</item>
+        <item>@string/day_17</item>
+        <item>@string/day_18</item>
+        <item>@string/day_19</item>
+        <item>@string/day_20</item>
+        <item>@string/day_21</item>
+        <item>@string/day_22</item>
+        <item>@string/day_23</item>
+        <item>@string/day_24</item>
+        <item>@string/day_25</item>
+        <item>@string/day_26</item>
+        <item>@string/day_27</item>
+        <item>@string/day_28</item>
+        <item>@string/day_29</item>
+        <item>@string/day_30</item>
+        <item>@string/day_31</item>
+    </string-array>
+</resources>

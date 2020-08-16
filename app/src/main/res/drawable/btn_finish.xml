@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" android:drawable="@mipmap/set_to_stop_press_2" />
+    <item android:state_enabled="false" android:drawable="@mipmap/set_to_stop_normal_2" />
+    <item android:drawable="@mipmap/set_to_stop_normal_2" />
+</selector>

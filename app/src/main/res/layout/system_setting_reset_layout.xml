@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:soundEffectsEnabled="false"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.ekek.tftcooker.views.QuarterOvalImageView
+        android:id="@+id/ivOk"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        app:vertex_position="top_right"
+        android:src="@null"
+        android:visibility="visible"
+        android:soundEffectsEnabled="false">
+
+    </com.ekek.tftcooker.views.QuarterOvalImageView>
+
+    <RelativeLayout
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/TitleText"
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:paddingStart="@dimen/system_setting_back_left_margin"
+            android:text=""
+            android:drawableLeft="@mipmap/back"
+            android:drawablePadding="25dp"
+            android:paddingBottom="30dp"
+            android:soundEffectsEnabled="false"
+            />
+        <TextView
+            style="@style/TitleText"
+            android:id="@+id/tv_title"
+            android:layout_toEndOf="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_reset"
+            android:soundEffectsEnabled="false"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/set_to_stop_normal_2"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:drawablePadding="25dp"
+            android:paddingBottom="30dp"
+            android:soundEffectsEnabled="false"
+            android:id="@+id/ok" />
+    </RelativeLayout>
+
+    <TextView
+        style="@style/ItemText"
+        android:id="@+id/tvRestoreDefault"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="150dp"
+        android:text="@string/title_restore_default_setting" />
+
+    <ScrollView
+        android:id="@+id/sv_versions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvRestoreDefault"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false">
+
+        <LinearLayout
+            android:id="@+id/ll_versions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llDemoMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/ItemText"
+                    android:id="@+id/tvDemoMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_demo_mode"/>
+
+                <com.ekek.tftcooker.views.ToggleButtonView
+                    style="@style/ItemText"
+                    android:id="@+id/tbvDemoMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:checked="false"
+                    android:padding="@dimen/normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llDebugMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/ItemText"
+                    android:id="@+id/tvDebugMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_debug_mode"/>
+
+                <com.ekek.tftcooker.views.ToggleButtonView
+                    style="@style/ItemText"
+                    android:id="@+id/tbvDebugMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:checked="false"
+                    android:padding="@dimen/normal" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_model"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/normal"
+                android:paddingBottom="@dimen/normal"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/ItemText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_model_title"
+                    android:text="@string/title_model"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="100dp"
+                    android:id="@+id/tv_model"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="30sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_software_version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/normal"
+                android:paddingBottom="@dimen/normal"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/ItemText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_software_version_title"
+                    android:text="@string/title_software_version"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="100dp"
+                    android:id="@+id/tv_software_version"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="30sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_version_display"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/normal"
+                android:paddingBottom="@dimen/normal"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/ItemText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_version_display_title"
+                    android:text="@string/title_version_display"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="100dp"
+                    android:id="@+id/tv_version_display"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="30sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_bluetooth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/normal"
+                android:paddingBottom="@dimen/normal"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/ItemText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_bluetooth_title"
+                    android:text="@string/title_bluetooth"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="100dp"
+                    android:id="@+id/tv_bluetooth"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="30sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

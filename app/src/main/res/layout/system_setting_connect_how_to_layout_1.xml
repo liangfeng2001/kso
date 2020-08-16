@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:soundEffectsEnabled="false">
+
+    <RelativeLayout
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/TitleText"
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:paddingStart="@dimen/system_setting_back_left_margin"
+            android:text=""
+            android:drawableLeft="@mipmap/back"
+            android:drawablePadding="25dp"
+            android:paddingBottom="30dp"
+            android:soundEffectsEnabled="false"
+            />
+        <TextView
+            style="@style/TitleText"
+            android:id="@+id/tv_title"
+            android:layout_toEndOf="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_connect"
+            android:soundEffectsEnabled="false"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/llTop">
+
+        <RelativeLayout
+            android:id="@+id/rlLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true" >
+
+            <ImageView
+                android:id="@+id/ivLeft"
+                android:layout_width="413dp"
+                android:layout_height="505dp"
+                android:layout_marginStart="@dimen/connect_how_to_margin"
+                android:background="@mipmap/connect_how_to_1_left"/>
+            <TextView
+                android:id="@+id/tv_back"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="92dp"
+                android:layout_marginStart="57dp"
+                android:text=""
+                android:drawableStart="@mipmap/back_small"
+                android:drawablePadding="25dp"
+                android:textColor="@android:color/background_light"
+                android:soundEffectsEnabled="false"
+                />
+            <TextView
+                android:id="@+id/tvTitleConnect"
+                android:layout_toEndOf="@+id/tv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="92dp"
+                android:layout_marginStart="0dp"
+                android:soundEffectsEnabled="false"
+                android:text="@string/title_connect"
+                android:textSize="22sp"
+                android:textColor="@android:color/background_light"
+                />
+
+            <TextView
+                android:id="@+id/tvHowTo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="140dp"
+                android:layout_marginStart="87dp"
+                android:soundEffectsEnabled="false"
+                android:text="@string/title_how_to_connect_hood"
+                android:textSize="18sp"
+                android:textColor="@android:color/background_light"
+                />
+
+            <TextView
+                android:id="@+id/tvHoodConnection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="179dp"
+                android:layout_marginStart="87dp"
+                android:soundEffectsEnabled="false"
+                android:text="@string/title_hood_connection"
+                android:textSize="18sp"
+                android:textColor="@android:color/background_light"
+                />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rlRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true">
+
+            <ImageView
+                android:id="@+id/ivRight"
+                android:layout_width="413dp"
+                android:layout_height="505dp"
+                android:layout_marginEnd="@dimen/connect_how_to_margin"
+                android:background="@mipmap/connect_how_to_1_right"/>
+
+            <TextView
+                android:id="@+id/tv_back_2"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="92dp"
+                android:layout_marginStart="12dp"
+                android:text=""
+                android:drawableStart="@mipmap/back_small"
+                android:drawablePadding="25dp"
+                android:textColor="@android:color/background_light"
+                android:soundEffectsEnabled="false"
+                />
+            <TextView
+                android:id="@+id/tvTitleConnect2"
+                android:layout_toEndOf="@+id/tv_back_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="92dp"
+                android:layout_marginStart="0dp"
+                android:soundEffectsEnabled="false"
+                android:text="@string/title_connect"
+                android:textSize="22sp"
+                android:textColor="@android:color/background_light"
+                />
+
+            <TextView
+                android:id="@+id/tvHowTo2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="140dp"
+                android:layout_marginStart="42dp"
+                android:soundEffectsEnabled="false"
+                android:text="@string/title_how_to_connect_hood"
+                android:textSize="18sp"
+                android:textColor="@android:color/background_light"
+                />
+
+            <TextView
+                android:id="@+id/tvHoodConnection2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="179dp"
+                android:layout_marginStart="42dp"
+                android:soundEffectsEnabled="false"
+                android:text="@string/title_hood_connection"
+                android:textSize="18sp"
+                android:textColor="@android:color/background_light"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/rlLeft"
+            android:layout_toStartOf="@+id/rlRight"
+            android:layout_marginBottom="@dimen/xxxlarge">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="@dimen/large"
+                android:src="@mipmap/rightward_normal_2"/>
+
+            <ImageButton
+                android:id="@+id/ibFinish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@null"
+                android:src="@drawable/btn_finish"
+                android:paddingStart="@dimen/xxxlarge"
+                android:paddingEnd="@dimen/xxxlarge"
+                android:paddingTop="@dimen/xxxlarge"
+                android:soundEffectsEnabled="false" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>
