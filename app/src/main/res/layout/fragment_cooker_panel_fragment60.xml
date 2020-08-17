@@ -34,9 +34,28 @@
             >
 
             <FrameLayout
-                android:layout_width="480dp"
+                android:layout_width="570dp"
                 android:layout_height="480dp"
-                android:paddingLeft="60dp">
+                android:paddingLeft="2dp">
+
+                <com.ekek.tftcooker.views.TrianProgressView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
+                    android:id="@+id/trian_progress"
+                    android:layout_marginTop="@dimen/trianprogress_value_margin_top"
+                    android:layout_marginLeft="@dimen/trianprogress_value_margin_left"
+                    />
+
+                <com.ekek.tftcooker.views.TrianProgressView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
+                    android:id="@+id/trian_progress2"
+                    android:layout_marginTop="@dimen/trianprogress_value_margin_top"
+                    android:layout_marginLeft="@dimen/trianprogress_value_margin_left"
+                    android:visibility="invisible"
+                    />
 
                 <com.ekek.tftcooker.views.CircleProgress
                     android:id="@+id/circle_progress"
@@ -56,6 +75,7 @@
                     app:unitSize="@dimen/text_size_25"
                     app:value="100"
                     app:valueSize="@dimen/text_size_35"
+                    android:visibility="invisible"
                     app:noText="true"/>
 
                 <com.ekek.tftcooker.views.CircleProgress
@@ -92,14 +112,29 @@
 
                 <TextView
                     android:id="@+id/tv_value_hint"
-                    android:layout_width="wrap_content"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_value"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/ring_hint_margin_top"
+                    android:layout_marginLeft="@dimen/ring_hint_margin_left"
                     android:text="@string/title_level"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/ring_text_assistant"
+                    android:gravity="end"
+                    android:soundEffectsEnabled="false" />
+                <!--定时下面的timer字样-->
+                <TextView
+                    android:id="@+id/tv_timer_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/ring_timer_hint_margin_top"
+                    android:layout_marginLeft="0dp"
+                    android:text="@string/title_level"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/ring_text_assistant"
+                    android:visibility="invisible"
                     android:soundEffectsEnabled="false" />
 
                 <ImageView
@@ -107,8 +142,9 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/auto_flag"
                     android:layout_gravity="center"
-                    android:layout_marginTop="130dp"
+                    android:layout_marginTop="@dimen/ring_hint_margin_top_auto"
                     android:src="@mipmap/autosamll"
+                    android:layout_marginLeft="220dp"
                     android:visibility="invisible"/>
 
                 <TextView
@@ -120,14 +156,16 @@
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/ring_text_assistant"
                     android:textAlignment="center"
+                    android:layout_marginTop="@dimen/no_pan_margin_top_auto"
+                    android:layout_marginRight="10dp"
                     android:visibility="invisible"
                     />
-
+                <!--定时-->
                 <LinearLayout
                     android:id="@+id/ll_timer_area"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/ring_value_margin_top"
+                    android:layout_marginTop="@dimen/ring_value_margin_top_timer"
                     android:layout_gravity="center"
                     android:orientation="horizontal"
                     android:visibility="invisible">

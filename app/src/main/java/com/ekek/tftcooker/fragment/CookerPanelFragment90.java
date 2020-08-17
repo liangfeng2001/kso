@@ -6150,6 +6150,7 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
     }
 
     private void PowerOffAll() {
+        trianProgress.powerOff();
         if (workMode == WORK_MODE_SET_TIMER_MINUTE
                 || workMode == WORK_MODE_SET_TIMER_HOUR
                 || workMode == WORK_MODE_SET_TIMER) {
@@ -6181,7 +6182,7 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
         click_lock_flag = false;
         setPauseFlag(false);
         switchOffTimerMode(false);
-        trianProgress.powerOff();
+
     }
 
     private void SetAllCookerIsGray() {
@@ -10836,7 +10837,7 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
                 break;
             case Power_Off_ALL:
                 PowerOffAll();  // 关闭所有炉头
-                trianProgress.powerOff();
+               // trianProgress.powerOff();
                 break;
             case Pause_Recover:  // 暂停恢复了
                 doPause_recover();
