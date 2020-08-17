@@ -2,8 +2,11 @@ package com.ekek.tftcooker.fragment;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,6 +20,7 @@ import com.ekek.tftcooker.common.Logger;
 import com.ekek.tftcooker.constants.CataSettingConstant;
 import com.ekek.tftcooker.constants.TFTCookerConstant;
 import com.ekek.tftcooker.database.DatabaseHelper;
+import com.ekek.tftcooker.database.SettingPreferencesUtil;
 import com.ekek.tftcooker.event.ClearTouchEvent;
 import com.ekek.tftcooker.event.CookerHighTempOrder;
 import com.ekek.tftcooker.event.CookerValueChanged;
@@ -25,12 +29,13 @@ import com.ekek.tftcooker.event.NoPanDetectedEvent;
 import com.ekek.tftcooker.event.SendPauseClickOrder;
 import com.ekek.tftcooker.event.ShowNotificationScreenOrder;
 import com.ekek.tftcooker.event.ShowTimerCompleteOrder;
-import com.ekek.tftcooker.event.TheLastClickedCooker;
 import com.ekek.tftcooker.event.TheFirstClickedCooker;
+import com.ekek.tftcooker.event.TheLastClickedCooker;
 import com.ekek.tftcooker.event.WorkModeChangedEvent;
 import com.ekek.tftcooker.model.AllCookerDataEx;
 import com.ekek.tftcooker.model.AnalysisSerialData;
 import com.ekek.tftcooker.model.ICookerPowerDataEx;
+import com.ekek.tftcooker.utils.LogUtil;
 import com.ekek.tftcooker.utils.SoundManager;
 import com.ekek.tftcooker.utils.SoundUtil;
 import com.ekek.tftcooker.utils.ViewUtils;
@@ -39,6 +44,7 @@ import com.ekek.tftcooker.views.CircleProgress;
 import com.ekek.tftcooker.views.CircularCookerView;
 import com.ekek.tftcooker.views.CookerView;
 import com.ekek.tftcooker.views.RectangleCookerView;
+import com.ekek.tftcooker.views.TrianProgressView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -49,10 +55,11 @@ import java.util.Locale;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class CookerPanelFragment80 extends CookerPanelFragment implements CircleProgress.OnCircleProgressListener {
+public class CookerPanelFragment80 extends CookerPanelFragment implements CircleProgress.OnCircleProgressListener , TrianProgressView.OnTrianProgressListener{
 
     @BindView(R.id.FrameLayout_Button_B10)
     FrameLayout FrameLayoutButtonB10;
@@ -78,6 +85,13 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
     TextView tvLeftMiddleClockWhenTimer;
     @BindView(R.id.left_line_long)
     View leftLineLong;
+    @BindView(R.id.trian_progress)
+    TrianProgressView trianProgress;
+    @BindView(R.id.trian_progress2)
+    TrianProgressView trianProgress2;
+    @BindView(R.id.tv_timer_hint)
+    TextView tvTimerHint;
+    Unbinder unbinder1;
     private boolean BoostIsWorking = false;
     private SoundManager mSoundManager;
 
@@ -89,7 +103,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
     @BindView(R.id.tv_value)
     TextView tvValue;
     @BindView(R.id.tv_value_hint) // level 与 B 倒计时
-    TextView tvValueHint;
+            TextView tvValueHint;
     @BindView(R.id.tvCookwareNotDetected)
     TextView tvCookwareNotDetected;
     @BindView(R.id.tv_pause)
@@ -171,6 +185,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
     private boolean noPanRightCookers = false;
 
     private boolean doingPowerOffCooker = false;
+    private static final float mSetPauseSize=35.0f;
 
     @Override
     protected int initLayout() {
@@ -181,6 +196,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
     public void refreshTextWhenLanguageChanged(Locale locale) {
         ViewUtils.refreshText(tvValueHint);
         ViewUtils.refreshText(tvCookwareNotDetected);
+        ViewUtils.refreshText(tvTimerHint);
     }
 
     @Override
@@ -190,6 +206,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
         cookerViewUpRight.powerOff();
         cookerViewDownRight.powerOff();
     }
+
     @Override
     protected void handleCookerErrors(int errorMessage, int cookerBits) {
         if (leftCookersUnited()) {
@@ -240,8 +257,9 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
         circleProgress.setAnimTime(TFTCookerConstant.CIRCLE_PROGRESS_ANIMATION_TIME);
         switchCircleProgressMode(TFTCookerConstant.GEAR_MAX_VALUE, TFTCookerConstant.GEAR_DEFAULT_VALUE_ZERO, false);
         circleProgress.setOnCircleProgressListener(this);
-        circleProgress.setMinSelectValue(TFTCookerConstant.GEAR_MIN_SELECT_VALUE);
-        circleProgress.setMaxSelectValue(TFTCookerConstant.GEAR_MAX_SELECT_VALUE);
+        trianProgress.setMinSelectValue(TFTCookerConstant.GEAR_MIN_SELECT_VALUE);
+        trianProgress.setMaxSelectValue(TFTCookerConstant.GEAR_MAX_SELECT_VALUE);
+        trianProgress.setOnTrianProgressListener(this);
         enableAllCookersTouch();
         initGigRectangleUI();
 
@@ -517,7 +535,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
             cookerViewDownLeft.SetBoostWorkingStatus(false);
             boost_flag_CookerView_Up_Left_Down_Left = false;
             setHobGearText(tvLeftMiddleGear, 9);
-            if (workMode == WORK_MODE_HOB  && currentCooker == COOKER_ID_Up_Left_Down_Left) {// 左上，左下
+            if (workMode == WORK_MODE_HOB && currentCooker == COOKER_ID_Up_Left_Down_Left) {// 左上，左下
                 updateCircleProgressValue(value);
             }
         }
@@ -566,7 +584,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                 updateCircleProgressValue(value);
             }
         }
-        if(boost_flag_CookerView_Up_Right_And_Up_Left_Slip&&cookerViewUpRight.getTimeForGearB().equals(TIMER_ZERO_STRING)){
+        if (boost_flag_CookerView_Up_Right_And_Up_Left_Slip && cookerViewUpRight.getTimeForGearB().equals(TIMER_ZERO_STRING)) {
             cookerViewUpRight.SetBoostWorkingStatus(false);
             cookerViewUpLeft.SetBoostWorkingStatus(false);
             boost_flag_CookerView_Up_Right_And_Up_Left_Slip = false;// 右上、左上  滑动
@@ -1296,8 +1314,8 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
     }
 
     private void ShowTvRightMiddleGearWhenTimerAndClockWhenTimer() {
-      //  cookerViewUpRight.SetAllTvVisible(true);
-      //  cookerViewDownRight.SetAllTvVisible(true);
+        //  cookerViewUpRight.SetAllTvVisible(true);
+        //  cookerViewDownRight.SetAllTvVisible(true);
     }
 
     private void doSetToAlert() {
@@ -2416,6 +2434,9 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
             dw.setBounds(0, 0, dw.getMinimumWidth(), dw.getMinimumHeight());
             tvTimer.setCompoundDrawables(null, dw, null, null);
             ViewUtils.setText(tvValueHint, R.string.hint_timer);
+            ViewUtils.setText(tvTimerHint, R.string.hint_timer);
+            tvValueHint.setVisibility(View.INVISIBLE);
+            tvTimerHint.setVisibility(View.VISIBLE);
             tvValue.setVisibility(View.INVISIBLE);
             llTimerArea.setVisibility(View.VISIBLE);
 
@@ -2811,6 +2832,11 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
         dw.setBounds(0, 0, dw.getMinimumWidth(), dw.getMinimumHeight());
         tvTimer.setCompoundDrawables(null, dw, null, null);
         ViewUtils.setText(tvValueHint, R.string.hint_level);
+
+        ViewUtils.setText(tvTimerHint, R.string.hint_level);
+        tvValueHint.setVisibility(View.VISIBLE);
+        tvTimerHint.setVisibility(View.INVISIBLE);
+
         tvValue.setVisibility(View.VISIBLE);
         llTimerArea.setVisibility(View.INVISIBLE);
         tvTimerHour.setTextColor(Color.RED);
@@ -2831,6 +2857,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
     private int getCurrentCookerGearValue() {
         return getCookerGearValue(currentCooker);
     }
+
     private int getCookerGearValue(int cookerId) {
         int value = 0;
         switch (cookerId) {
@@ -3075,6 +3102,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
     private void setHoodAuto() {
         handler.sendEmptyMessageDelayed(HANDLER_SET_HOOD_AUTO, 800);
     }
+
     private void doSaveHoodAuto() {
         if (TFTCookerApplication.getInstance().isHoodAuto()) {
             hoodGear = getAutoHoodLevel();
@@ -3127,6 +3155,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
 
         valueHintBeforePaused = tvValueHint.getText();
         tvValueHint.setText(R.string.title_paused);
+        setSizeWhenPause();
     }
 
     private void doPause_recover() {
@@ -3140,6 +3169,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
         LockAllUI(true);
         setPauseFlag(false);
         tvValueHint.setText(valueHintBeforePaused);
+        setSizeWhenRecoverFormPause();
     }
 
     private void doSetBoostMode_Linked_Cooker() {
@@ -3557,6 +3587,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
     private void updateCircleProgressValue(int value) {
         int currentValue = (int) circleProgress.getValue();
         circleProgress.setValue(value);
+        trianProgress.setValue(value);
     }
 
     private void updateCookerValue(int value) {
@@ -3634,8 +3665,8 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                     cookerViewDownRight.setGear(value);
                     cookerViewUpRight.SetBackGroundBlue();
                     cookerViewDownRight.SetBackGroundBlue();
-                   // cookerViewUpRight.SetTvGearVisible(false);
-                  //  cookerViewDownRight.SetTvGearVisible(false);
+                    // cookerViewUpRight.SetTvGearVisible(false);
+                    //  cookerViewDownRight.SetTvGearVisible(false);
                     break;
                 case COOKER_ID_Up_Left_Down_Right: // 左上、右下
                     cookerViewUpLeft.setGear(value);
@@ -3736,8 +3767,8 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                     tvLeftMiddleGear.setBackgroundColor(cooker_color_blue);
                     setHobGearText(tvLeftMiddleGear, value);
 
-                 //   cookerViewUpRight.SetTvGearVisible(false);
-                 //   cookerViewDownRight.SetTvGearVisible(false);
+                    //   cookerViewUpRight.SetTvGearVisible(false);
+                    //   cookerViewDownRight.SetTvGearVisible(false);
 
                     setHobGearText(tvLeftMiddleGearWhenTimer, value);
                     if (click_set_to_alert_flag_Up_Left_Down_Left_Down_Right_Up_Right || click_set_to_stop_flag_Up_Left_Down_Left_Down_Right_Up_Right) { //左上、左下、右下、右上
@@ -3755,8 +3786,8 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                     cookerViewDownLeft.SetBackGroundBlue();
                     cookerViewUpRight.SetBackGroundBlue();
 
-                   // cookerViewUpRight.SetTvGearVisible(false);
-                  //  cookerViewDownRight.SetTvGearVisible(false);
+                    // cookerViewUpRight.SetTvGearVisible(false);
+                    //  cookerViewDownRight.SetTvGearVisible(false);
                     break;
 
                 case COOKER_ID_Up_Right_Up_Left_Down_Left_Down_Right://右上、左上、左下、右下
@@ -3828,8 +3859,8 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                     cookerViewDownRight.SetBackGroundBlue();
                     cookerViewUpLeft.SetBackGroundBlue();
 
-                  //  cookerViewUpRight.SetTvGearVisible(false);
-                  //  cookerViewDownRight.SetTvGearVisible(false);
+                    //  cookerViewUpRight.SetTvGearVisible(false);
+                    //  cookerViewDownRight.SetTvGearVisible(false);
                     break;
                 case COOKER_ID_Up_Right_Down_Right_Down_Left:// 右上、右下、左下
                     cookerViewUpRight.setGear(value);
@@ -3840,8 +3871,8 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                     cookerViewDownRight.SetBackGroundBlue();
                     cookerViewDownLeft.SetBackGroundBlue();
 
-                 //   cookerViewUpRight.SetTvGearVisible(false);
-                  //  cookerViewDownRight.SetTvGearVisible(false);
+                    //   cookerViewUpRight.SetTvGearVisible(false);
+                    //  cookerViewDownRight.SetTvGearVisible(false);
                     break;
                 case COOKER_ID_Up_Left_Midlle_Down_Left://左上、中间、左下
                     cookerViewUpLeft.setGear(value);
@@ -3892,8 +3923,8 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                     } else { // 最后点击的是圈圈
 
                     }
-                  //  cookerViewUpRight.SetTvGearVisible(false);
-                  //  cookerViewDownRight.SetTvGearVisible(false);
+                    //  cookerViewUpRight.SetTvGearVisible(false);
+                    //  cookerViewDownRight.SetTvGearVisible(false);
                     break;
                 case COOKER_ID_Down_Right_Up_Right_Middle_Down_Left:// 右下、右上、中间、左下
                     cookerViewUpRight.setGear(value);
@@ -3904,8 +3935,8 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                     cookerViewDownRight.SetBackGroundBlue();
                     cookerViewDownLeft.SetBackGroundBlue();
 
-                  //  cookerViewUpRight.SetTvGearVisible(false);
-                   // cookerViewDownRight.SetTvGearVisible(false);
+                    //  cookerViewUpRight.SetTvGearVisible(false);
+                    // cookerViewDownRight.SetTvGearVisible(false);
                     break;
                 case COOKER_ID_Down_Right_Up_Right_Middle_Up_Left:// 右下、右上、中间、左上
                     cookerViewUpRight.setGear(value);
@@ -3916,8 +3947,8 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                     cookerViewDownRight.SetBackGroundBlue();
                     cookerViewUpLeft.SetBackGroundBlue();
 
-                  //  cookerViewUpRight.SetTvGearVisible(false);
-                   // cookerViewDownRight.SetTvGearVisible(false);
+                    //  cookerViewUpRight.SetTvGearVisible(false);
+                    // cookerViewDownRight.SetTvGearVisible(false);
                     break;
                 case COOKER_ID_Down_Left_Up_Left_Middle_Up_Right:// 左下、左上、中间、右上
                     cookerViewUpLeft.setGear(value);
@@ -4033,8 +4064,8 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                     cookerViewDownLeft.SetBackGroundBlue();
                     cookerViewUpLeft.SetBackGroundBlue();
 
-                   // cookerViewUpRight.SetTvGearVisible(false);
-                  //  cookerViewDownRight.SetTvGearVisible(false);
+                    // cookerViewUpRight.SetTvGearVisible(false);
+                    //  cookerViewDownRight.SetTvGearVisible(false);
                     break;
                 case COOKER_ID_All://全部
                     cookerViewUpRight.setGear(value);
@@ -4287,10 +4318,10 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
 
     @Override
     protected int getTotalPower() {
-       return cookerViewUpLeft.getGearValue()
-               + cookerViewDownLeft.getGearValue()
-               + cookerViewUpRight.getGearValue()
-               + cookerViewDownRight.getGearValue();
+        return cookerViewUpLeft.getGearValue()
+                + cookerViewDownLeft.getGearValue()
+                + cookerViewUpRight.getGearValue()
+                + cookerViewDownRight.getGearValue();
     }
 
     private void doStopCooker() {
@@ -4896,6 +4927,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
         click_lock_flag = false;
         setPauseFlag(false);
         switchOffTimerMode(false);
+      //  trianProgress.powerOff();
     }
 
     private void SetAllCookerIsGray() {
@@ -5211,14 +5243,14 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                 break;
             case COOKER_ID_Up_Left_And_Down_Letf_SameTime:// 左上，左下  同时点击
                 if ((id == COOKER_ID_Up_Right) || (id == COOKER_ID_Down_Right)) {
-                    if (Select_CookerView_Up_Right_Down_Right){ // 右上 右下
+                    if (Select_CookerView_Up_Right_Down_Right) { // 右上 右下
                         doOpenAgainTheTwoCookerOfRight();
-                    }else {
+                    } else {
                         DoAllSetGray();
                         currentCooker = id;
                         //   tvLeftMiddleGear.setBackgroundColor(cooker_color_gray);
                     }
-                }else {
+                } else {
                     // tvLeftMiddleGear.setBackgroundColor(cooker_color_gray);
                     DoAllSetGray();
                     currentCooker = id;
@@ -5227,14 +5259,14 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                 Select_CookerView_Up_Left_Down_Left_SameTime = false;  // 左上，左下
                 break;
             case COOKER_ID_Up_Right_And_Down_Right_SameTime: // 右上、右下 同时点击
-                if (id == COOKER_ID_Up_Left || id == COOKER_ID_Down_Left){
-                    if (Select_CookerView_Up_Left_Down_Left){
+                if (id == COOKER_ID_Up_Left || id == COOKER_ID_Down_Left) {
+                    if (Select_CookerView_Up_Left_Down_Left) {
                         doOpenAgainTheTwoCookerOfLeft();
-                    }else {
+                    } else {
                         DoAllSetGray();
                         currentCooker = id;
                     }
-                }else {
+                } else {
                     DoAllSetGray();
                     currentCooker = id;
                 }
@@ -5390,7 +5422,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                 break;
             case COOKER_ID_Up_Left_Up_Right_Down_Right_Down_Left://左上、右上、右下、左下
                 Select_CookerView_Up_Left_Up_Right_Down_Right_Down_Left = false; //左上、右上、右下、左下
-             //   Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
+                //   Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
                 DoAllSetGray();
                 currentCooker = id;
                /* if ((id == COOKER_ID_Up_Right) || (id == COOKER_ID_Down_Right)) {
@@ -5404,7 +5436,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
             case COOKER_ID_Up_Left_Down_Left_Down_Right_Up_Right:  //左上、左下、右下、右上
                 Select_CookerView_Up_Left_Down_Left_Down_Right_Up_Right = false;//左上、左下、右下、右上
                 Select_CookerView_Up_Left_Down_Left = true;  // 左上，左下
-             //   Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
+                //   Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
                 DoAllSetGray();
                 if ((id == COOKER_ID_Up_Left) || (id == COOKER_ID_Down_Left)) {
 
@@ -5420,13 +5452,13 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                     currentCooker = COOKER_ID_Up_Right_Down_Right;
                 }*/ else {
                     currentCooker = id;
-                   // tvLeftMiddleGear.setBackgroundColor(cooker_color_gray);
+                    // tvLeftMiddleGear.setBackgroundColor(cooker_color_gray);
                 }
                 break;
 
             case COOKER_ID_Up_Right_Down_Right_Down_Left: // 右上、右下、左下
                 Select_CookerView_Up_Right_Down_Right_Down_Left = false; // 右上、右下、左下
-             //   Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
+                //   Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
                 DoAllSetGray();
                 currentCooker = id;
               /*  if ((id == COOKER_ID_Up_Right) || (id == COOKER_ID_Down_Right)) {
@@ -5440,7 +5472,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                 break;
             case COOKER_ID_Up_Left_Up_Right_Down_Right: // 右上、右下、左上
                 Select_CookerView_Up_Left_Up_Right_Down_Right = false;    // 右上、右下、左上
-              //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
+                //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
                 DoAllSetGray();
                 currentCooker = id;
                /* if ((id == COOKER_ID_Up_Right) || (id == COOKER_ID_Down_Right)) {
@@ -5509,7 +5541,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                     } else {
                         DoAllSetGray();
                         currentCooker = id;
-                       // tvLeftMiddleGear.setBackgroundColor(cooker_color_gray);
+                        // tvLeftMiddleGear.setBackgroundColor(cooker_color_gray);
                     }
                 } else {
                     DoUnlink_SetGray_SetID(id);
@@ -5561,7 +5593,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                 break;
             case COOKER_ID_Down_Right_Up_Right_Middle:// 右上、右下、中间
                 Select_CookerView_Down_Right_Up_Right_Middle = false;// 右上、右下、中间
-               // Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
+                // Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
                 DoAllSetGray();
                 if ((id == COOKER_ID_Up_Right) || (id == COOKER_ID_Down_Right)) {
                     cookerViewUpRight.SetBackGroundBlue();
@@ -5585,7 +5617,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                 break;
             case COOKER_ID_Down_Right_Up_Right_Middle_Down_Left:// 右下、右上、中间、左下
                 Select_CookerView_Down_Right_Up_Right_Middle_Down_Left = false;// 右下、右上、中间、左下
-             //   Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
+                //   Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
                 DoAllSetGray();
                 currentCooker = id;
                /* if ((id == COOKER_ID_Up_Right) || (id == COOKER_ID_Down_Right)) {
@@ -5599,7 +5631,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                 break;
             case COOKER_ID_Down_Right_Up_Right_Middle_Up_Left: // 右下、右上、中间、左上
                 Select_CookerView_Down_Right_Up_Right_Middle_Up_Left = false; // 右下、右上、中间、左上
-             //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
+                //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
                 DoAllSetGray();
                 currentCooker = id;
                /* if ((id == COOKER_ID_Up_Right) || (id == COOKER_ID_Down_Right)) {
@@ -5657,7 +5689,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                 break;
             case COOKER_ID_ALL_ALL_NONE_RIGHT://全部 右边无区
                 Select_CookerView_ALL_ALL_NONE_RIGHT = false;//全部 右边无区
-            //   Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
+                //   Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
                 DoAllSetGray();
                 currentCooker = id;
                 /*if ((id == COOKER_ID_Up_Right) || (id == COOKER_ID_Down_Right)) {
@@ -5690,7 +5722,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
             case COOKER_ID_All://全部
                 Select_CookerView_All = false;//全部
                 Select_CookerView_Up_Left_Down_Left = true;  // 左上，左下
-             //   Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
+                //   Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
                 DoAllSetGray();
                 if ((id == COOKER_ID_Up_Left) || (id == COOKER_ID_Down_Left)) {
 
@@ -5721,7 +5753,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                         DoAllSetGray();
                         currentCooker = id;
                     }
-                }  else {
+                } else {
                     DoAllSetGray();
                     currentCooker = id;
                     if (Select_CookerView_Up_Left_Down_Left) {// 左下 左上
@@ -5884,33 +5916,33 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
             boolean force) {
         boolean rangeChanged = false;
 
-        int max = (int) circleProgress.getMaxValue();
+        int max = (int) trianProgress.getMaxValue();
         if (max != maxValue || force) {
-            circleProgress.setMaxValue(maxValue);
+            trianProgress.setMaxValue(maxValue);
             rangeChanged = true;
         }
-        int maxSelect = (int) circleProgress.getMaxSelectValue();
+        int maxSelect = (int) trianProgress.getMaxSelectValue();
         if (maxSelect != maxSelectValue || force) {
-            circleProgress.setMaxSelectValue(maxSelectValue);
+            trianProgress.setMaxSelectValue(maxSelectValue);
             rangeChanged = true;
         }
 
-        int min = (int) circleProgress.getMinValue();
+        int min = (int) trianProgress.getMinValue();
         if (min != minValue || force) {
-            circleProgress.setMinValue(minValue);
+            trianProgress.setMinValue(minValue);
             rangeChanged = true;
         }
-        int minSelect = (int) circleProgress.getMinSelectValue();
+        int minSelect = (int) trianProgress.getMinSelectValue();
         if (minSelect != minSelectValue || force) {
-            circleProgress.setMinSelectValue(minSelectValue);
+            trianProgress.setMinSelectValue(minSelectValue);
             rangeChanged = true;
         }
 
-        int currentValue = (int) circleProgress.getValue();
-        if (currentValue != value || rangeChanged || force) circleProgress.setValue(value);
+        int currentValue = (int) trianProgress.getValue();
+        if (currentValue != value || rangeChanged || force) trianProgress.setValue(value);
 
-        if (canTouch) circleProgress.enable();
-        else circleProgress.disable();
+        if (canTouch) trianProgress.enable();
+        else trianProgress.disable();
     }
 
 
@@ -5933,9 +5965,9 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
             tvLock.setEnabled(true);
             tvLockM.setEnabled(true);
             if (workMode == WORK_MODE_HOB && getCookerViewsInProcess().size() == 0) {
-                circleProgress.disable();
+                trianProgress.disable();
             } else {
-                circleProgress.enable();
+                trianProgress.enable();
             }
         } else {
             disableAllCookersTouch();
@@ -5952,7 +5984,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
             tvHoodC12.setEnabled(false);
             tvLock.setEnabled(false);
             tvLockM.setEnabled(false);
-            circleProgress.disable();
+            trianProgress.disable();
 
         }
     }
@@ -6648,7 +6680,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
             case COOKER_ID_Up_Left_Down_Left_Down_Right_Up_Right:  //左上、左下、右下、右上
                 //  Select_CookerView_Up_Left_Down_Left_Down_Right_Up_Right = false;
                 Select_CookerView_Up_Left_Down_Left = true;  // 左上，左下
-            //    Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
+                //    Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
                 tvLeftMiddleGear.setBackgroundColor(Color.rgb(58, 60, 61));// gray
                 if (boost_flag_CookerView_Up_Left_Down_Left_Down_Right_Up_Right) {
                     boost_flag_CookerView_Up_Left_Down_Left_Down_Right_Up_Right = false;
@@ -6673,7 +6705,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                 break;
             case COOKER_ID_Up_Left_Up_Right_Down_Right_Down_Left://左上、右上、右下、左下
                 Select_CookerView_Up_Left_Up_Right_Down_Right_Down_Left = false; //左上、右上、右下、左下
-              //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
+                //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
 
                 if (boost_flag_CookerView_Up_Left_Up_Right_Down_Right_Down_Left) {
                     boost_flag_CookerView_Up_Left_Up_Right_Down_Right_Down_Left = false; //左上、右上、右下、左下
@@ -6723,7 +6755,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                 break;
             case COOKER_ID_Up_Left_Up_Right_Down_Right: // 右上、右下、左上
                 Select_CookerView_Up_Left_Up_Right_Down_Right = false;
-               // Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
+                // Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
 
                 if (boost_flag_CookerView_Up_Right_Down_Right_Up_Left) {
                     boost_flag_CookerView_Up_Right_Down_Right_Up_Left = false;
@@ -6744,7 +6776,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                 break;
             case COOKER_ID_Up_Right_Down_Right_Down_Left: // 右上、右下、左下
                 Select_CookerView_Up_Right_Down_Right_Down_Left = false; // 右上、右下、左下
-              //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
+                //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
 
                 if (boost_flag_CookerView_Up_Right_Down_Right_Down_Left) {
                     boost_flag_CookerView_Up_Right_Down_Right_Down_Left = false;
@@ -6850,7 +6882,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
             case COOKER_ID_Down_Right_Up_Right_Middle:// 右上、右下、中间
 
                 Select_CookerView_Down_Right_Up_Right_Middle = false;// 右上、右下、中间
-              //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
+                //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
                 if (boost_flag_CookerView_Down_Right_Up_Right_Middle) {
                     boost_flag_CookerView_Down_Right_Up_Right_Middle = false;
                     boost_flag_CookerView_Up_Right_Down_Right = true;  // 右上、右下
@@ -6893,7 +6925,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                 break;
             case COOKER_ID_Down_Right_Up_Right_Middle_Up_Left:// 右下、右上、中间、左上
                 Select_CookerView_Down_Right_Up_Right_Middle_Up_Left = false; // 右下、右上、中间、左上
-             //   Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
+                //   Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下
 
                 if (boost_flag_CookerView_Down_Right_Up_Right_Middle_Up_Left) {
                     boost_flag_CookerView_Down_Right_Up_Right_Middle_Up_Left = false;
@@ -7627,7 +7659,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
             case COOKER_ID_Up_Left_Down_Left_Down_Right_Up_Right:  //左上、左下、右下、右上
                 Select_CookerView_Up_Left_Down_Left_Down_Right_Up_Right = false;
                 Select_CookerView_Up_Left_Down_Left = true;  // 左上，左下  滑动
-              //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下 滑动
+                //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下 滑动
 
                 if (boost_flag_CookerView_Up_Left_Down_Left_Down_Right_Up_Right) {
                     boost_flag_CookerView_Up_Left_Down_Left_Down_Right_Up_Right = false;
@@ -7642,7 +7674,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
             case COOKER_ID_Up_Left_Up_Right_Down_Right_Down_Left://左上、右上、右下、左下
                 Select_CookerView_Up_Left_Up_Right_Down_Right_Down_Left = false; //左上、右上、右下、左下
 
-              //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下 滑动
+                //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下 滑动
                 if (boost_flag_CookerView_Up_Left_Up_Right_Down_Right_Down_Left) {
                     boost_flag_CookerView_Up_Left_Up_Right_Down_Right_Down_Left = false; //左上、右上、右下、左下
                     boost_flag_CookerView_Up_Right_Down_Right = true;  // 右上、右下
@@ -7674,7 +7706,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                 break;
             case COOKER_ID_Up_Left_Up_Right_Down_Right: // 右上、右下、左上
                 Select_CookerView_Up_Left_Up_Right_Down_Right = false;
-              //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下 滑动
+                //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下 滑动
 
                 if (boost_flag_CookerView_Up_Right_Down_Right_Up_Left) {
                     boost_flag_CookerView_Up_Right_Down_Right_Up_Left = false;
@@ -7687,7 +7719,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                 break;
             case COOKER_ID_Up_Right_Down_Right_Down_Left: // 右上、右下、左下
                 Select_CookerView_Up_Right_Down_Right_Down_Left = false; // 右上、右下、左下
-              //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下 滑动
+                //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下 滑动
 
                 if (boost_flag_CookerView_Up_Right_Down_Right_Down_Left) {
                     boost_flag_CookerView_Up_Right_Down_Right_Down_Left = false;
@@ -7776,7 +7808,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
             case COOKER_ID_Down_Right_Up_Right_Middle:// 右上、右下、中间
 
                 Select_CookerView_Down_Right_Up_Right_Middle = false;// 右上、右下、中间
-              //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下 滑动
+                //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下 滑动
                 if (boost_flag_CookerView_Down_Right_Up_Right_Middle) {
                     boost_flag_CookerView_Down_Right_Up_Right_Middle = false;
                     boost_flag_CookerView_Up_Right_Down_Right = true;  // 右上、右下
@@ -7789,7 +7821,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
             case COOKER_ID_Down_Right_Up_Right_Middle_Down_Left:// 右下、右上、中间、左下
                 Select_CookerView_Down_Right_Up_Right_Middle_Down_Left = false;// 右下、右上、中间、左下
 
-               // Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下 滑动
+                // Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下 滑动
                 if (boost_flag_CookerView_Down_Right_Up_Right_Middle_Down_Left) {
                     boost_flag_CookerView_Down_Right_Up_Right_Middle_Down_Left = false;
                     boost_flag_CookerView_Up_Right_Down_Right = true;  // 右上、右下
@@ -7804,7 +7836,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
             case COOKER_ID_Down_Right_Up_Right_Middle_Up_Left:// 右下、右上、中间、左上
                 Select_CookerView_Down_Right_Up_Right_Middle_Up_Left = false; // 右下、右上、中间、左上
 
-              //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下 滑动
+                //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下 滑动
                 if (boost_flag_CookerView_Down_Right_Up_Right_Middle_Up_Left) {
                     boost_flag_CookerView_Down_Right_Up_Right_Middle_Up_Left = false;
                     boost_flag_CookerView_Up_Right_Down_Right = true;  // 右上、右下
@@ -7911,7 +7943,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
             case COOKER_ID_All://全部
                 Select_CookerView_All = false;//全部
 
-              //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下 滑动
+                //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下 滑动
                 Select_CookerView_Up_Left_Down_Left = true;  // 左上，左下  滑动
                 if (boost_flag_CookerView_All) {
                     boost_flag_CookerView_All = false;
@@ -7968,7 +8000,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
             case COOKER_ID_ALL_ALL_NONE_RIGHT://全部 右边无区
                 Select_CookerView_ALL_ALL_NONE_RIGHT = false;//全部 右边无区
 
-              //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下 滑动
+                //  Select_CookerView_Up_Right_Down_Right = true;  // 右上、右下 滑动
                 if (boost_flag_CookerView_ALL_ALL_NONE_RIGHT) {
                     boost_flag_CookerView_ALL_ALL_NONE_RIGHT = false;
                     cookerViewUpLeft_boost_flag = true;// 左上
@@ -8731,8 +8763,8 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                     doPowerOnTheTwoCookersOfLeft(vg);// 左边无区 开启
                     doPowerOnTheTwoCookersOfRight(vg);// 右边无区 开启
                     // Select_CookerView_All = true;//全部
-                    currentCooker = COOKER_ID_Up_Left_Down_Left_Down_Right_Up_Right ; //左上、左下、右下、右上
-                    Select_CookerView_Up_Left_Down_Left_Down_Right_Up_Right=true; //左上、左下、右下、右上
+                    currentCooker = COOKER_ID_Up_Left_Down_Left_Down_Right_Up_Right; //左上、左下、右下、右上
+                    Select_CookerView_Up_Left_Down_Left_Down_Right_Up_Right = true; //左上、左下、右下、右上
                     SetWorkingTimerWhenLinkeCookers(timermode);
                 } else if (Select_CookerView_Up_Left_Down_Left) {
                     Select_CookerView_Up_Left_Down_Left = false;  // 左上，左下  滑动
@@ -8740,7 +8772,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                     //doPowerOnTheMiddleCooker(vg);// 中间
                     doPowerOnTheTwoCookersOfLeft(vg);// 左边无区 开启
                     Select_CookerView_Up_Left_Down_Left_Down_Right = true; // 左上、左下、右下
-                    currentCooker =  COOKER_ID_Up_Left_Down_Left_Down_Right ; // 左上、左下、右下
+                    currentCooker = COOKER_ID_Up_Left_Down_Left_Down_Right; // 左上、左下、右下
                     //  Select_CookerView_Down_Left_Up_Left_Middle_Down_Right = true; // 左下、左上、中间、右下
                     //  currentCooker = COOKER_ID_Down_Left_Up_Left_Middle_Down_Right; // 左下、左上、中间、右下;
                     SetWorkingTimerWhenLinkeCookers(timermode);
@@ -8750,7 +8782,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                     //    doPowerOnTheMiddleCooker(vg);// 中间
                     doPowerOnTheTwoCookersOfRight(vg);// 右边无区 开启
                     Select_CookerView_Up_Left_Up_Right_Down_Right = true;    // 右上、右下、左上
-                    currentCooker = COOKER_ID_Up_Left_Up_Right_Down_Right ; // 右上、右下、左上
+                    currentCooker = COOKER_ID_Up_Left_Up_Right_Down_Right; // 右上、右下、左上
                     //  Select_CookerView_Down_Right_Up_Right_Middle_Up_Left = true; // 右下、右上、中间、左上
                     //  currentCooker = COOKER_ID_Down_Right_Up_Right_Middle_Up_Left; // 右下、右上、中间、左上
                     SetWorkingTimerWhenLinkeCookers(timermode);
@@ -8773,15 +8805,15 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                     doPowerOnTheTwoCookersOfRight(vg);// 右边无区 开启
                     //  Select_CookerView_All = true;//全部
                     // currentCooker = COOKER_ID_All;//全部
-                    currentCooker = COOKER_ID_Up_Left_Down_Left_Down_Right_Up_Right ; //左上、左下、右下、右上
-                    Select_CookerView_Up_Left_Down_Left_Down_Right_Up_Right=true; //左上、左下、右下、右上
+                    currentCooker = COOKER_ID_Up_Left_Down_Left_Down_Right_Up_Right; //左上、左下、右下、右上
+                    Select_CookerView_Up_Left_Down_Left_Down_Right_Up_Right = true; //左上、左下、右下、右上
                     SetWorkingTimerWhenLinkeCookers(timermode);
                 } else if (Select_CookerView_Up_Left_Down_Left) {
                     Select_CookerView_Up_Left_Down_Left = false;  // 左上，左下  滑动
                     doPowerOnTheUpRightCooker(vg); // 右上
                     doPowerOnTheTwoCookersOfLeft(vg);// 左边无区 开启
                     Select_CookerView_Up_Right_Up_Left_Down_Left = true; //左上、左下 、右上
-                    currentCooker = COOKER_ID_Up_Right_Up_Left_Down_Left ; //左上、左下 、右上
+                    currentCooker = COOKER_ID_Up_Right_Up_Left_Down_Left; //左上、左下 、右上
                     //  Select_CookerView_Down_Left_Up_Left_Middle_Up_Right = true; // 左下、左上、中间、右上
                     // currentCooker = COOKER_ID_Down_Left_Up_Left_Middle_Up_Right; // 左下、左上、中间、右上
                     SetWorkingTimerWhenLinkeCookers(timermode);
@@ -8790,7 +8822,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                     doPowerOnTheDownLeftCooker(vg);  // 左下
                     doPowerOnTheTwoCookersOfRight(vg);// 右边无区 开启
                     Select_CookerView_Up_Right_Down_Right_Down_Left = true; // 右上、右下、左下
-                    currentCooker = COOKER_ID_Up_Right_Down_Right_Down_Left ; // 右上、右下、左下
+                    currentCooker = COOKER_ID_Up_Right_Down_Right_Down_Left; // 右上、右下、左下
                     // Select_CookerView_Down_Right_Up_Right_Middle_Down_Left = true;// 右下、右上、中间、左下
                     //    currentCooker = COOKER_ID_Down_Right_Up_Right_Middle_Down_Left;// 右下、右上、中间、左下;
                     SetWorkingTimerWhenLinkeCookers(timermode);
@@ -9706,13 +9738,13 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
     }
 
     private void restoreSelectRange() {
-        circleProgress.setMinSelectValue(TFTCookerConstant.GEAR_DEFAULT_VALUE_ZERO);
-        circleProgress.setMaxSelectValue(TFTCookerConstant.GEAR_MAX_VALUE);
+        trianProgress.setMinSelectValue(TFTCookerConstant.GEAR_DEFAULT_VALUE_ZERO);
+        trianProgress.setMaxSelectValue(TFTCookerConstant.GEAR_MAX_VALUE);
     }
 
     private void restrictSelectRange() {
-        circleProgress.setMinSelectValue(TFTCookerConstant.GEAR_MIN_SELECT_VALUE);
-        circleProgress.setMaxSelectValue(TFTCookerConstant.GEAR_MAX_SELECT_VALUE);
+        trianProgress.setMinSelectValue(TFTCookerConstant.GEAR_MIN_SELECT_VALUE);
+        trianProgress.setMaxSelectValue(TFTCookerConstant.GEAR_MAX_SELECT_VALUE);
     }
 
     private Map<Integer, Integer> getCookerViewsInProcess() {
@@ -9750,10 +9782,10 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
 
     private void SaveAllCookersData() {
         DatabaseHelper.SaveCookersData(0L,
-                1, getRefinedGearValue(cookerViewDownLeft),0,
-                1, getRefinedGearValue(cookerViewUpLeft),0,
-                1, getRefinedGearValue(cookerViewUpRight),0,
-                1, getRefinedGearValue(cookerViewDownRight),0,
+                1, getRefinedGearValue(cookerViewDownLeft), 0,
+                1, getRefinedGearValue(cookerViewUpLeft), 0,
+                1, getRefinedGearValue(cookerViewUpRight), 0,
+                1, getRefinedGearValue(cookerViewDownRight), 0,
                 1, 0, 0,
                 1, 0, 0,
                 hoodGear_sended, lightCearValue_sended, lightGear_orange, 0, 0);
@@ -9826,15 +9858,15 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
             return;
         }
         if (noPanDetected && circleProgress.getVisibility() == View.VISIBLE) {
-            circleProgress2.setVisibility(View.VISIBLE);
-            circleProgress.setVisibility(View.INVISIBLE);
+            trianProgress2.setVisibility(View.VISIBLE);
+            trianProgress.setVisibility(View.INVISIBLE);
             tvValue.setVisibility(View.INVISIBLE);
             tvValueHint.setVisibility(View.INVISIBLE);
             autoFlag.setVisibility(View.INVISIBLE);
             tvCookwareNotDetected.setVisibility(View.VISIBLE);
         } else if (!noPanDetected && circleProgress2.getVisibility() == View.VISIBLE) {
-            circleProgress2.setVisibility(View.INVISIBLE);
-            circleProgress.setVisibility(View.VISIBLE);
+            trianProgress2.setVisibility(View.INVISIBLE);
+            trianProgress.setVisibility(View.VISIBLE);
             tvValue.setVisibility(View.VISIBLE);
             tvValueHint.setVisibility(View.VISIBLE);
             if (TFTCookerApplication.getInstance().isHoodAuto()) {
@@ -9879,6 +9911,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
             }
         }
     }
+
     private void checkCookerHighTemperature(AnalysisSerialData event) {
 
         if (event.isPoweredOn()) {
@@ -10315,6 +10348,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                             TFTCookerConstant.GEAR_DEFAULT_VALUE_ZERO,
                             false,
                             true);
+                   //trianProgress.powerOff();
                 }
                 break;
             case HANDLER_SET_HOOD_AUTO:
@@ -10322,7 +10356,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
                 break;
             case HANDLER_ADJUST_LEVEL:
                 if (msg.arg1 > 0) {
-                    circleProgress.setValue(msg.arg1);
+                    trianProgress.setValue(msg.arg1);
                 } else {
                     onViewClicked(tvStop);
                 }
@@ -10352,9 +10386,9 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
     }
 
     private void SetHoodSendGear(int value) {
-        byte tempValue = (byte)value;
+        byte tempValue = (byte) value;
         if (TFTCookerApplication.getInstance().isHoodAuto()) {
-            tempValue = (byte)getAutoHoodGearLevel(value);
+            tempValue = (byte) getAutoHoodGearLevel(value);
             hoodGear_sended = tempValue | 0x00;    // 自动
         } else {
             hoodGear_sended = tempValue | 0x80;  // 手动
@@ -10749,18 +10783,184 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
         return flag;
     }
 
-    private void setTimerIconWhenFreeCookers_set_to_stop(TextView tv){  // set to stop
+    private void setTimerIconWhenFreeCookers_set_to_stop(TextView tv) {  // set to stop
 
-        Drawable  drawable = this.getResources().getDrawable(R.mipmap.set_to_stop_normal_small);
+        Drawable drawable = this.getResources().getDrawable(R.mipmap.set_to_stop_normal_small);
         drawable.setBounds(0, 0, 30, 30);
         tv.setCompoundDrawablePadding(5);
         tv.setCompoundDrawables(null, null, null, drawable);
     }
-    private void setTimerIconWhenFreeCookers_set_to_alert(TextView tv){  //  set to alert
+
+    private void setTimerIconWhenFreeCookers_set_to_alert(TextView tv) {  //  set to alert
 
         Drawable drawable = this.getResources().getDrawable(R.mipmap.set_to_alert_normal_small);
         drawable.setBounds(0, 0, 27, 30);
         tv.setCompoundDrawablePadding(4);
         tv.setCompoundDrawables(null, null, null, drawable);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder1 = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onTrianProgress(float value, boolean fromWidget) {
+        Logger.getInstance().i("onProgress(" + value + "," + fromWidget + ")");
+        int iValue = (int) Math.ceil(value);
+        if (Math.round(value) == 0) {
+            iValue = 0;
+        }
+
+        if (workMode == WORK_MODE_HOB) {// 炉灶 模式
+            if (!doingPowerOffCooker) {
+
+                // 在关闭无区时，两个炉头会依次关闭，关闭第一个炉头后，会自动选中第二个，
+                // 此时执行到此处时，可能串口数据还没来得及同步，导致 InductionCookerHardwareManager
+                // 返回错误的 newValue
+                // 因为是在进行关闭炉头的操作，并未重新开启新的炉头，故此处也不需要进行询问
+                int newValue = getMaxHobLevel(currentCooker, iValue);
+                if (newValue < iValue) {
+                    Message msg = new Message();
+                    msg.what = HANDLER_ADJUST_LEVEL;
+                    msg.arg1 = newValue;
+                    handler.sendMessageDelayed(msg, 200);
+                    return;
+                }
+            }
+
+            updateCookerValue(iValue);
+            setHoodAuto();
+            this.SaveAllCookersData();
+        } else if (workMode == WORK_MODE_HOOD) { // 风机模式
+            if (hoodGear == iValue) {  // 值没有改变，说明 没有点击 圈圈。
+
+            } else {
+                if (TFTCookerApplication.getInstance().isHoodAuto()) {
+                    TFTCookerApplication.getInstance().setHoodAuto(false);
+                }
+                hoodGear = iValue;
+                setAutoUI();
+                this.SaveAllCookersData();
+            }
+        } else if (workMode == WORK_MODE_SET_LIGHT) {
+            lightGear_blue = iValue;
+            SetLightSendedGear(iValue);
+            tvValue.setText(String.valueOf(lightGear_blue));
+        } else if (workMode == WORK_MODE_SET_TIMER_HOUR) {
+            timerHour = iValue;
+            tvTimerHour.setText(String.format(HOUR_FORMAT, timerHour));
+            if (timerHour == this.getMaxHours()) {
+                int maxMinutes = this.getMaxMinutes();
+                if (maxMinutes == TFTCookerConstant.TIMER_MINUTE_MAX_VALUE) {
+                    timerMinute = 0;
+                    tvTimerMinute.setText(String.format(MINUTE_FORMAT, timerMinute));
+                } else if (timerMinute > maxMinutes) {
+                    timerMinute = maxMinutes;
+                    tvTimerMinute.setText(String.format(MINUTE_FORMAT, timerMinute));
+                }
+            } else if ((timerHour == 0) && (timerMinute == 0)) {
+                timerMinute = 1;
+                tvTimerMinute.setText(String.format(MINUTE_FORMAT, timerMinute));
+            }
+
+        } else if (workMode == WORK_MODE_SET_TIMER_MINUTE) {
+            timerMinute = iValue;
+            tvTimerMinute.setText(String.format(MINUTE_FORMAT, timerMinute));
+            if (timerHour == this.getMaxHours()) {
+                int maxMinutes = this.getMaxMinutes();
+                if (maxMinutes == TFTCookerConstant.TIMER_MINUTE_MAX_VALUE) {
+                    if (timerMinute != 0) {
+                        timerHour--;
+                        tvTimerHour.setText(String.format(HOUR_FORMAT, timerHour));
+                    }
+                }
+            }
+        }
+
+    }
+
+    private void setSizeWhenSetTimer(){
+        int language = SettingPreferencesUtil.getDefaultLanguage(getContext());
+        switch (language) {
+            case TFTCookerConstant.LANGUAGE_POLISH:
+                //  c.locale = new Locale("pl");
+                tvValueHint.setTextSize(mSetPauseSize);
+                break;
+
+            default:
+                //   c.locale = Locale.getDefault();
+                break;
+        }
+    }
+
+    private void setSizeWhenPause(){
+        int language = SettingPreferencesUtil.getDefaultLanguage(getContext());
+        switch (language) {
+            case TFTCookerConstant.LANGUAGE_ROMANIAN:
+                //   c.locale = new Locale("ro");
+                //   tvValueHint.setTextSize(mSetPauseSize);
+                break;
+            case TFTCookerConstant.LANGUAGE_ENGLISH:
+                //  c.locale = Locale.ENGLISH;
+                break;
+            case TFTCookerConstant.LANGUAGE_FRENCH:
+                // c.locale = Locale.FRENCH;
+                tvValueHint.setTextSize(33.0f);
+                break;
+            case TFTCookerConstant.LANGUAGE_POLISH:
+                //  c.locale = new Locale("pl");
+                tvValueHint.setTextSize(mSetPauseSize);
+                break;
+            case TFTCookerConstant.LANGUAGE_PORTUGUESE:
+                //  c.locale = new Locale("pt");
+                break;
+            case TFTCookerConstant.LANGUAGE_TURKISH:
+                // c.locale = new Locale("tr");
+                int size= (int)tvValueHint.getTextSize();
+                LogUtil.d("the text size is "+size);
+                tvValueHint.setTextSize(mSetPauseSize);
+                break;
+            default:
+                //   c.locale = Locale.getDefault();
+                break;
+        }
+
+    }
+
+    private void setSizeWhenRecoverFormPause(){
+        int language = SettingPreferencesUtil.getDefaultLanguage(getContext());
+        switch (language) {
+            case TFTCookerConstant.LANGUAGE_ROMANIAN:
+                //   c.locale = new Locale("ro");
+                // tvValueHint.setTextSize(40.0f);
+                break;
+            case TFTCookerConstant.LANGUAGE_ENGLISH:
+                //  c.locale = Locale.ENGLISH;
+                break;
+            case TFTCookerConstant.LANGUAGE_FRENCH:
+                // c.locale = Locale.FRENCH;
+                tvValueHint.setTextSize(40.0f);
+                break;
+            case TFTCookerConstant.LANGUAGE_POLISH:
+                //  c.locale = new Locale("pl");
+                tvValueHint.setTextSize(40.0f);
+                break;
+            case TFTCookerConstant.LANGUAGE_PORTUGUESE:
+                //  c.locale = new Locale("pt");
+                break;
+            case TFTCookerConstant.LANGUAGE_TURKISH:
+                // c.locale = new Locale("tr");
+                int size= (int)tvValueHint.getTextSize();
+                LogUtil.d("the text size is "+size);
+                tvValueHint.setTextSize(40.0f);
+                break;
+            default:
+                //   c.locale = Locale.getDefault();
+                break;
+        }
     }
 }
