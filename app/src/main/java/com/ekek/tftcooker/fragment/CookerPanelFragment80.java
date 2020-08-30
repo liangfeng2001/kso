@@ -10897,6 +10897,20 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
         }
     }
 
+    private void setSizeWhenRecoverFromSetTimer(){
+        int language = SettingPreferencesUtil.getDefaultLanguage(getContext());
+        switch (language) {
+            case TFTCookerConstant.LANGUAGE_POLISH:
+                //  c.locale = new Locale("pl");
+                tvValueHint.setTextSize(40.0f);
+                break;
+
+            default:
+                //   c.locale = Locale.getDefault();
+                break;
+        }
+    }
+
     private void setSizeWhenPause(){
         int language = SettingPreferencesUtil.getDefaultLanguage(getContext());
         switch (language) {

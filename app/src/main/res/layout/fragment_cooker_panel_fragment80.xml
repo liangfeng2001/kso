@@ -144,8 +144,9 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/auto_flag"
                     android:layout_gravity="center"
-                    android:layout_marginTop="130dp"
+                    android:layout_marginTop="@dimen/ring_hint_margin_top_auto"
                     android:src="@mipmap/autosamll"
+                    android:layout_marginLeft="220dp"
                     android:visibility="invisible"/>
 
                 <TextView
