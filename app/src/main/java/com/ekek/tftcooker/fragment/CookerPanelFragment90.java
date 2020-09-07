@@ -11343,6 +11343,7 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
         }
         if (noPanDetected) {   //收到 无锅的 信息
              trianProgress2.setVisibility(View.VISIBLE);
+             trianProgress2.disable();
              trianProgress.setVisibility(View.INVISIBLE);
              tvValue.setVisibility(View.INVISIBLE);
              tvValueHint.setVisibility(View.INVISIBLE);

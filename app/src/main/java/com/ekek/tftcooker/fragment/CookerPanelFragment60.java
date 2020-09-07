@@ -10384,11 +10384,13 @@ public class CookerPanelFragment60 extends CookerPanelFragment implements Circle
         }
         if (noPanDetected) {
             trianProgress2.setVisibility(View.VISIBLE);
+            trianProgress2.disable();
             trianProgress.setVisibility(View.INVISIBLE);
             tvValue.setVisibility(View.INVISIBLE);
             tvValueHint.setVisibility(View.INVISIBLE);
             autoFlag.setVisibility(View.INVISIBLE);
             tvCookwareNotDetected.setVisibility(View.VISIBLE);
+            LogUtil.d("get the no pot");
         } else if (!noPanDetected) {
             trianProgress2.setVisibility(View.INVISIBLE);
             trianProgress.setVisibility(View.VISIBLE);

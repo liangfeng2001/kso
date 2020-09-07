@@ -9857,14 +9857,15 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
         if (workMode != WORK_MODE_HOB) {
             return;
         }
-        if (noPanDetected && circleProgress.getVisibility() == View.VISIBLE) {
+        if (noPanDetected ) {
             trianProgress2.setVisibility(View.VISIBLE);
+            trianProgress2.disable();
             trianProgress.setVisibility(View.INVISIBLE);
             tvValue.setVisibility(View.INVISIBLE);
             tvValueHint.setVisibility(View.INVISIBLE);
             autoFlag.setVisibility(View.INVISIBLE);
             tvCookwareNotDetected.setVisibility(View.VISIBLE);
-        } else if (!noPanDetected && circleProgress2.getVisibility() == View.VISIBLE) {
+        } else if (!noPanDetected) {
             trianProgress2.setVisibility(View.INVISIBLE);
             trianProgress.setVisibility(View.VISIBLE);
             tvValue.setVisibility(View.VISIBLE);
