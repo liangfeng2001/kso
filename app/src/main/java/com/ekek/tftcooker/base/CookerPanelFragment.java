@@ -211,6 +211,7 @@ public abstract class CookerPanelFragment extends Fragment {
     protected static final int HANDLER_HOOD_GEAR_BLINK = 17;
     protected static final int HANDLER_HOOD_TIMER_FINISHED = 18;
     protected static final int HANDLER_PAUSE_SHOW_TEXT = 19;
+    protected static final int HANDLER_POWER_OFF_FROM_ERROR03=20;
 
     protected static final int LIGHT_MODE_OFF = 0;
     protected static final int LIGHT_MODE_LIGHT_Orange = 1;

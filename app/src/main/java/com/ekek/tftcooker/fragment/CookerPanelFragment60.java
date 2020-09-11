@@ -202,6 +202,7 @@ public class CookerPanelFragment60 extends CookerPanelFragment implements Circle
 
     private boolean doingPowerOffCooker = false;
     private static final float mSetPauseSize=35.0f;
+    private boolean mPowerOffFromE03=false;
 
     @Override
     protected int initLayout() {
@@ -217,8 +218,9 @@ public class CookerPanelFragment60 extends CookerPanelFragment implements Circle
 
     @Override
     protected void powerOffAllCookers() {
-        cookerViewDownLeft.powerOff();
+        mPowerOffFromE03=true;
         cookerViewUpLeft.powerOff();
+        cookerViewDownLeft.powerOff();
         cookerViewUpRight.powerOff();
         cookerViewDownRight.powerOff();
     }
@@ -1030,17 +1032,29 @@ public class CookerPanelFragment60 extends CookerPanelFragment implements Circle
     }
 
     private void HideTvLeftMiddleGearWhenTimerAndClockWhenTimer() {
-        tvLeftMiddleGear.setVisibility(View.VISIBLE);
+        if(mPowerOffFromE03){
+            tvLeftMiddleGear.setVisibility(View.INVISIBLE);
+        }else {
+            tvLeftMiddleGear.setVisibility(View.VISIBLE);
+        }
         tvLeftMiddleGearWhenTimer.setVisibility(View.INVISIBLE);
         tvLeftMiddleClockWhenTimer.setVisibility(View.INVISIBLE);
         leftLineLong.setBackgroundColor(Color.WHITE);
+
+        handler.sendEmptyMessageDelayed(HANDLER_POWER_OFF_FROM_ERROR03,1000 );
     }
 
     private void HideTvRightMiddleGearWhenTimerAndClockWhenTimer() {
-        tvRightMiddleGear.setVisibility(View.VISIBLE);
+        if(mPowerOffFromE03){
+            tvRightMiddleGear.setVisibility(View.INVISIBLE);
+        }else {
+            tvRightMiddleGear.setVisibility(View.VISIBLE);
+        }
         tvRightMiddleGearWhenTimer.setVisibility(View.INVISIBLE);
         tvRightMiddleClockWhenTimer.setVisibility(View.INVISIBLE);
         rightLineLong.setBackgroundColor(Color.WHITE);
+
+        handler.sendEmptyMessageDelayed(HANDLER_POWER_OFF_FROM_ERROR03,1000 );
     }
 
     private void HideTvRightMiddleGearWhenTimerAndClockWhenTimer_Stop() {
@@ -1074,6 +1088,7 @@ public class CookerPanelFragment60 extends CookerPanelFragment implements Circle
             if (cookerViewUpLeft.getTimeHourMinute().equals(TIMER_ZERO_STRING)) { // 闹铃定时结束
                 click_set_to_alert_flag_Up_Left_Down_Left = false;
                 HideTvLeftMiddleGearWhenTimerAndClockWhenTimer();
+               // LogUtil.d("show the close timer ");
             }
         }
         if (click_set_to_stop_flag_Up_Left_Down_Left) {
@@ -10876,8 +10891,10 @@ public class CookerPanelFragment60 extends CookerPanelFragment implements Circle
                         && cookerViewUpRight.getGearValue() == 0
                         && cookerViewDownRight.getGearValue() == 0) {
                     EventBus.getDefault().post(new ShowTimerCompleteOrder(ShowTimerCompleteOrder.ORDER_RESUME_STAND_BY)); // 可以锁屏
+                    LogUtil.d("go to stand by");
                 } else {  // 还有炉头在工作，不能关
                     EventBus.getDefault().post(new ShowTimerCompleteOrder(ShowTimerCompleteOrder.ORDER_NO_STAND_BY));// 炉头还在工作，不可以锁屏
+                    LogUtil.d("wait stand by");
                 }
                 break;
             case HANDLER_TIMER_DOING:  // 定时在进行中
@@ -10924,6 +10941,11 @@ public class CookerPanelFragment60 extends CookerPanelFragment implements Circle
                     if (tvValueShouldBeVisible()) {
                         tvValue.setVisibility(View.VISIBLE);
                     }
+                }
+                break;
+            case HANDLER_POWER_OFF_FROM_ERROR03:
+                if(mPowerOffFromE03){
+                    mPowerOffFromE03=false;
                 }
                 break;
         }
