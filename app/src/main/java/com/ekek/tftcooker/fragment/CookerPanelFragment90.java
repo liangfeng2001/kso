@@ -211,6 +211,7 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
     private boolean setPaddingFlagForFanScreen = false;
     private float mTempValue = 0;
     private static final float mSetPauseSize=35.0f;
+    private boolean mPowerOffFromE03=false;
 
     @Override
     protected int initLayout() {
@@ -226,6 +227,7 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
 
     @Override
     protected void powerOffAllCookers() {
+        mPowerOffFromE03=true;
         cookerViewDownLeft.powerOff();
         cookerViewUpLeft.powerOff();
         cookerViewMiddle.powerOff();
@@ -1254,17 +1256,31 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
     }
 
     private void HideTvLeftMiddleGearWhenTimerAndClockWhenTimer() {
-        tvLeftMiddleGear.setVisibility(View.VISIBLE);
+        if(mPowerOffFromE03){
+            tvLeftMiddleGear.setVisibility(View.INVISIBLE);
+        }else {
+            tvLeftMiddleGear.setVisibility(View.VISIBLE);
+        }
+
         tvLeftMiddleGearWhenTimer.setVisibility(View.INVISIBLE);
         tvLeftMiddleClockWhenTimer.setVisibility(View.INVISIBLE);
         leftLineLong.setBackgroundColor(Color.WHITE);
+
+        handler.sendEmptyMessageDelayed(HANDLER_POWER_OFF_FROM_ERROR03,1000 );
     }
 
     private void HideTvRightMiddleGearWhenTimerAndClockWhenTimer() {
-        tvRightMiddleGear.setVisibility(View.VISIBLE);
+        if(mPowerOffFromE03){
+            tvRightMiddleGear.setVisibility(View.INVISIBLE);
+        }else {
+            tvRightMiddleGear.setVisibility(View.VISIBLE);
+        }
+
         tvRightMiddleGearWhenTimer.setVisibility(View.INVISIBLE);
         tvRightMiddleClockWhenTimer.setVisibility(View.INVISIBLE);
         rightLineLong.setBackgroundColor(Color.WHITE);
+
+        handler.sendEmptyMessageDelayed(HANDLER_POWER_OFF_FROM_ERROR03,1000 );
     }
 
     private void HideTvRightMiddleGearWhenTimerAndClockWhenTimer_Stop() {
@@ -11893,6 +11909,11 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
                 break;
             case HANDLER_PAUSE_SHOW_TEXT:
                 tvValueHint.setSelected(true);
+                break;
+            case HANDLER_POWER_OFF_FROM_ERROR03:
+                if(mPowerOffFromE03){
+                    mPowerOffFromE03=false;
+                }
                 break;
         }
     }
