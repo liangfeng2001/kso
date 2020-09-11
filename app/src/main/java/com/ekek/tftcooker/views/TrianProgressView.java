@@ -34,6 +34,10 @@ public class TrianProgressView extends View{
     private float mValue;                // 当前的值
     private OnTrianProgressListener mListener;
     private int mGetNumOfProgress=0;   // 显示多少条橙色的坚条
+    boolean mFirstClick=false;
+    boolean mSecondClick=false;
+    static final int FIRST_OFFSET=490;
+    static final int MAX_AXIE_X=548;
     public TrianProgressView(Context context) {
         super(context);
     }
@@ -277,12 +281,25 @@ public class TrianProgressView extends View{
         LogUtil.d("click x = "+Action_x);
         LogUtil.d("click y = "+Action_y);
 
+        if(Action_x>=FIRST_OFFSET&&!mFirstClick){  // 曾经点击过490这个位置
+            mFirstClick=true;
+        }else if(Action_x<FIRST_OFFSET) {
+            mFirstClick = false;
+            mSecondClick=false;
+        }else if(Action_x>=FIRST_OFFSET&&mFirstClick){
+            mSecondClick=true;
+        }
+
+
         if (!isPointValid(Action_x,Action_y , mCenterPoint.x , mCenterPoint.y)) {
             return true;
         }
+        if(Action_x>=MAX_AXIE_X){
+            Action_x=MAX_AXIE_X;
+        }
         mGetNumOfProgress=getProgressNumber(Action_x);
         doSetValue(mGetNumOfProgress,Action_x, true);
-        LogUtil.d("mGetNumOfProgress is "+mGetNumOfProgress);
+        LogUtil.d("mGetNumOfProgress is "+mGetNumOfProgress+" ; the x is "+Action_x);
 
         /*根据坐标转换成对应的角度*/
         float get_x0 = Action_x - mCenterPoint.x;
@@ -309,7 +326,7 @@ public class TrianProgressView extends View{
            LogUtil.d("the click 3 is "+reValue);
        }
 
-       if(p1x>548){  //  超过第1 or 4 象限
+       if(p1x>MAX_AXIE_X&&!mSecondClick){  //  超过第1 or 4 象限
            reValue=false;
            LogUtil.d("the click  4 is "+reValue);
        }
@@ -318,7 +335,7 @@ public class TrianProgressView extends View{
             reValue=false;
             LogUtil.d("the click  5 is "+reValue);
         }
-        LogUtil.d("the click is 6 "+reValue);
+//        LogUtil.d("the click is 6 "+reValue);
        return reValue;
     }
     /**
@@ -340,9 +357,9 @@ public class TrianProgressView extends View{
         int num=0;
         float everyX;
        if(mMaxSelectValue>100){  //  null 设置
-
+        LogUtil.d("wrong data");
        }else {
-           everyX=clickx*10/548;  // 548 对象的长度
+           everyX=clickx*10/MAX_AXIE_X;  // 548 对象的长度
            if(everyX<0.5f){  // 档位、分钟 小时 设置
                num=(int)mMinSelectValue;
            }else if(everyX>=0.5f&&everyX<1.5f){
@@ -361,9 +378,9 @@ public class TrianProgressView extends View{
                num=7;
            }else if(everyX>=7.5f&&everyX<8.5f){
                num=8;
-           }else if(everyX>=8.5f&&everyX<9.5f){
+           }else if(everyX>=8.5f&&everyX<9.2f){ // 9.5
                num=9;
-           }else if(everyX>=9.5f){
+           }else if(everyX>=9.2f){
                 num=10;
 
            }
@@ -442,8 +459,8 @@ public class TrianProgressView extends View{
     private void doSetValue(float value, float slipvalue,boolean fromWidget) {
 
         if(fromWidget&&mMaxSelectValue>10){
-            value=(float) Math.ceil(slipvalue*mMaxSelectValue/548);
-            LogUtil.d("slip the trianger value is "+value);
+            value=(float) Math.ceil(slipvalue*mMaxSelectValue/MAX_AXIE_X);
+          //  LogUtil.d("slip the trianger value is "+value);
         }else {
 
         }
