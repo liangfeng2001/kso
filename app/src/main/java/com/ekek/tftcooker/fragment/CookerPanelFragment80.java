@@ -186,7 +186,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
 
     private boolean doingPowerOffCooker = false;
     private static final float mSetPauseSize=35.0f;
-
+    private boolean mPowerOffFromE03=false;
     @Override
     protected int initLayout() {
         return R.layout.fragment_cooker_panel_fragment80;
@@ -201,6 +201,7 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
 
     @Override
     protected void powerOffAllCookers() {
+        mPowerOffFromE03=true;
         cookerViewDownLeft.powerOff();
         cookerViewUpLeft.powerOff();
         cookerViewUpRight.powerOff();
@@ -1003,7 +1004,13 @@ public class CookerPanelFragment80 extends CookerPanelFragment implements Circle
     }
 
     private void HideTvLeftMiddleGearWhenTimerAndClockWhenTimer() {
-        tvLeftMiddleGear.setVisibility(View.VISIBLE);
+        if(mPowerOffFromE03){
+            mPowerOffFromE03=false;
+            tvLeftMiddleGear.setVisibility(View.INVISIBLE);
+        }else {
+            tvLeftMiddleGear.setVisibility(View.VISIBLE);
+        }
+
         tvLeftMiddleGearWhenTimer.setVisibility(View.INVISIBLE);
         tvLeftMiddleClockWhenTimer.setVisibility(View.INVISIBLE);
         leftLineLong.setBackgroundColor(Color.WHITE);
