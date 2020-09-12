@@ -51,8 +51,8 @@
     <dimen name="cooker_gear_text">56sp</dimen>
     <dimen name="cooker_timer_text">40sp</dimen>
 
-    <dimen name="ring_value_margin_top">-70dp</dimen>
-    <dimen name="ring_hint_margin_top">-50dp</dimen>
+    <dimen name="ring_value_margin_top">-24dp</dimen>
+    <dimen name="ring_hint_margin_top">90dp</dimen>
     <dimen name="ring_hint_margin_left">150dp</dimen>
     <dimen name="ring_hint_margin_top_auto">-90dp</dimen>
     <dimen name="ring_value_margin_top_timer">-110dp</dimen>

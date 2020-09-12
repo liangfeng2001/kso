@@ -96,13 +96,10 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
     View leftLineLong;
     @BindView(R.id.right_line_long)
     View rightLineLong;
-    @BindView(R.id.trian_progress)
-    TrianProgressView trianProgress;
-    @BindView(R.id.tv_timer_hint)
-    TextView tvTimerHint;
+
+
     Unbinder unbinder1;
-    @BindView(R.id.trian_progress2)
-    TrianProgressView trianProgress2;
+
     private boolean BoostIsWorking = false;
     private SoundManager mSoundManager;
 
@@ -221,7 +218,7 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
     @Override
     public void refreshTextWhenLanguageChanged(Locale locale) {
         ViewUtils.refreshText(tvValueHint);
-        ViewUtils.refreshText(tvTimerHint);
+      //  ViewUtils.refreshText(tvTimerHint);
         ViewUtils.refreshText(tvCookwareNotDetected);
     }
 
@@ -303,9 +300,8 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
         circleProgress.setAnimTime(TFTCookerConstant.CIRCLE_PROGRESS_ANIMATION_TIME);
         switchCircleProgressMode(TFTCookerConstant.GEAR_MAX_VALUE, TFTCookerConstant.GEAR_DEFAULT_VALUE_ZERO, false);
         circleProgress.setOnCircleProgressListener(this);
-        trianProgress.setMinSelectValue(TFTCookerConstant.GEAR_MIN_SELECT_VALUE);
-        trianProgress.setMaxSelectValue(TFTCookerConstant.GEAR_MAX_SELECT_VALUE);
-        trianProgress.setOnTrianProgressListener(this);
+        circleProgress.setMinSelectValue(TFTCookerConstant.GEAR_MIN_SELECT_VALUE);
+        circleProgress.setMaxSelectValue(TFTCookerConstant.GEAR_MAX_SELECT_VALUE);
         enableAllCookersTouch();
         initGigRectangleUI();
 
@@ -1270,6 +1266,7 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
     }
 
     private void HideTvRightMiddleGearWhenTimerAndClockWhenTimer() {
+
         if(mPowerOffFromE03){
             tvRightMiddleGear.setVisibility(View.INVISIBLE);
         }else {
@@ -3115,9 +3112,9 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
             dw.setBounds(0, 0, dw.getMinimumWidth(), dw.getMinimumHeight());
             tvTimer.setCompoundDrawables(null, dw, null, null);
             ViewUtils.setText(tvValueHint, R.string.hint_timer);
-            ViewUtils.setText(tvTimerHint, R.string.hint_timer);
+          //  ViewUtils.setText(tvTimerHint, R.string.hint_timer);
             tvValueHint.setVisibility(View.INVISIBLE);
-            tvTimerHint.setVisibility(View.VISIBLE);
+          //  tvTimerHint.setVisibility(View.VISIBLE);
             tvValue.setVisibility(View.INVISIBLE);
             llTimerArea.setVisibility(View.VISIBLE);
 
@@ -3508,9 +3505,9 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
         dw.setBounds(0, 0, dw.getMinimumWidth(), dw.getMinimumHeight());
         tvTimer.setCompoundDrawables(null, dw, null, null);
         ViewUtils.setText(tvValueHint, R.string.hint_level);
-        ViewUtils.setText(tvTimerHint, R.string.hint_level);
+       // ViewUtils.setText(tvTimerHint, R.string.hint_level);
         tvValueHint.setVisibility(View.VISIBLE);
-        tvTimerHint.setVisibility(View.INVISIBLE);
+       // tvTimerHint.setVisibility(View.INVISIBLE);
         tvValue.setVisibility(View.VISIBLE);
         llTimerArea.setVisibility(View.INVISIBLE);
         tvTimerHour.setTextColor(Color.RED);
@@ -4589,7 +4586,7 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
     private void updateCircleProgressValue(int value) {
         int currentValue = (int) circleProgress.getValue();
         circleProgress.setValue(value);
-        trianProgress.setValue(value);
+       // trianProgress.setValue(value);
     }
 
     private void updateCookerValue(int value) {
@@ -6166,7 +6163,6 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
     }
 
     private void PowerOffAll() {
-        trianProgress.powerOff();
         if (workMode == WORK_MODE_SET_TIMER_MINUTE
                 || workMode == WORK_MODE_SET_TIMER_HOUR
                 || workMode == WORK_MODE_SET_TIMER) {
@@ -6198,7 +6194,7 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
         click_lock_flag = false;
         setPauseFlag(false);
         switchOffTimerMode(false);
-
+      //  trianProgress.powerOff();
     }
 
     private void SetAllCookerIsGray() {
@@ -7263,34 +7259,34 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
             boolean force) {
         boolean rangeChanged = false;
 
-        int max = (int) trianProgress.getMaxValue();
+        int max = (int) circleProgress.getMaxValue();
         if (max != maxValue || force) {
-            trianProgress.setMaxValue(maxValue);
+            circleProgress.setMaxValue(maxValue);
             rangeChanged = true;
         }
-        int maxSelect = (int) trianProgress.getMaxSelectValue();
+        int maxSelect = (int) circleProgress.getMaxSelectValue();
         if (maxSelect != maxSelectValue || force) {
-            trianProgress.setMaxSelectValue(maxSelectValue);
+            circleProgress.setMaxSelectValue(maxSelectValue);
             rangeChanged = true;
         }
 
-        int min = (int) trianProgress.getMinValue();
+        int min = (int) circleProgress.getMinValue();
         if (min != minValue || force) {
-            trianProgress.setMinValue(minValue);
+            circleProgress.setMinValue(minValue);
             rangeChanged = true;
         }
-        int minSelect = (int) trianProgress.getMinSelectValue();
+        int minSelect = (int) circleProgress.getMinSelectValue();
         if (minSelect != minSelectValue || force) {
-            trianProgress.setMinSelectValue(minSelectValue);
+            circleProgress.setMinSelectValue(minSelectValue);
             rangeChanged = true;
         }
         LogUtil.d("set the value is "+value);
-        int currentValue = (int) trianProgress.getValue();
+        int currentValue = (int) circleProgress.getValue();
 
-        if (currentValue != value || rangeChanged || force) trianProgress.setValue(value);
+        if (currentValue != value || rangeChanged || force) circleProgress.setValue(value);
 
-        if (canTouch) trianProgress.enable();
-        else trianProgress.disable();
+        if (canTouch) circleProgress.enable();
+        else circleProgress.disable();
     }
 
 
@@ -7313,9 +7309,9 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
             tvLock.setEnabled(true);
             tvLockM.setEnabled(true);
             if (workMode == WORK_MODE_HOB && getCookerViewsInProcess().size() == 0) {
-                trianProgress.disable();
+                circleProgress.disable();
             } else {
-                trianProgress.enable();
+                circleProgress.enable();
             }
         } else {
             disableAllCookersTouch();
@@ -7332,7 +7328,7 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
             tvHoodC12.setEnabled(false);
             tvLock.setEnabled(false);
             tvLockM.setEnabled(false);
-            trianProgress.disable();
+            circleProgress.disable();
 
         }
     }
@@ -10853,7 +10849,7 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
                 break;
             case Power_Off_ALL:
                 PowerOffAll();  // 关闭所有炉头
-               // trianProgress.powerOff();
+             //   trianProgress.powerOff();
                 break;
             case Pause_Recover:  // 暂停恢复了
                 doPause_recover();
@@ -11220,15 +11216,13 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
     }
 
     private void restoreSelectRange() {
-        trianProgress.setMinSelectValue(TFTCookerConstant.GEAR_DEFAULT_VALUE_ZERO);
-        trianProgress.setMaxSelectValue(TFTCookerConstant.GEAR_MAX_VALUE);
-        LogUtil.d("set restoreSelectRange is 0");
+        circleProgress.setMinSelectValue(TFTCookerConstant.GEAR_DEFAULT_VALUE_ZERO);
+        circleProgress.setMaxSelectValue(TFTCookerConstant.GEAR_MAX_VALUE);
     }
 
     private void restrictSelectRange() {
-        trianProgress.setMinSelectValue(TFTCookerConstant.GEAR_MIN_SELECT_VALUE);
-        trianProgress.setMaxSelectValue(TFTCookerConstant.GEAR_MAX_SELECT_VALUE);
-        LogUtil.d("set restrictSelectRange is 1");
+        circleProgress.setMinSelectValue(TFTCookerConstant.GEAR_MIN_SELECT_VALUE);
+        circleProgress.setMaxSelectValue(TFTCookerConstant.GEAR_MAX_SELECT_VALUE);
     }
 
     private Map<Integer, Integer> getCookerViewsInProcess() {
@@ -11358,16 +11352,15 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
             return;
         }
         if (noPanDetected) {   //收到 无锅的 信息
-             trianProgress2.setVisibility(View.VISIBLE);
-             trianProgress2.disable();
-             trianProgress.setVisibility(View.INVISIBLE);
-             tvValue.setVisibility(View.INVISIBLE);
-             tvValueHint.setVisibility(View.INVISIBLE);
-             autoFlag.setVisibility(View.INVISIBLE);
-             tvCookwareNotDetected.setVisibility(View.VISIBLE);
+            circleProgress2.setVisibility(View.VISIBLE);
+            circleProgress.setVisibility(View.INVISIBLE);
+            tvValue.setVisibility(View.INVISIBLE);
+            tvValueHint.setVisibility(View.INVISIBLE);
+            autoFlag.setVisibility(View.INVISIBLE);
+            tvCookwareNotDetected.setVisibility(View.VISIBLE);
         } else if (!noPanDetected) {  // 没有收到 无锅的信息
-            trianProgress2.setVisibility(View.INVISIBLE);
-            trianProgress.setVisibility(View.VISIBLE);
+            circleProgress2.setVisibility(View.INVISIBLE);
+            circleProgress.setVisibility(View.VISIBLE);
             tvValue.setVisibility(View.VISIBLE);
             tvValueHint.setVisibility(View.VISIBLE);
             if (TFTCookerApplication.getInstance().isHoodAuto()) {
@@ -11873,7 +11866,7 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
                             TFTCookerConstant.GEAR_DEFAULT_VALUE_ZERO,
                             false,
                             true);
-                    trianProgress.powerOff();
+                   // trianProgress.powerOff();
                 }
                 break;
             case HANDLER_SET_HOOD_AUTO:
@@ -11881,7 +11874,7 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
                 break;
             case HANDLER_ADJUST_LEVEL:
                 if (msg.arg1 > 0) {
-                    trianProgress.setValue(msg.arg1);
+                    circleProgress.setValue(msg.arg1);
                 } else {
                     onViewClicked(tvStop);
                 }
@@ -12139,7 +12132,7 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
         switch (language) {
             case TFTCookerConstant.LANGUAGE_ROMANIAN:
                 //   c.locale = new Locale("ro");
-             //   tvValueHint.setTextSize(mSetPauseSize);
+                //   tvValueHint.setTextSize(mSetPauseSize);
                 break;
             case TFTCookerConstant.LANGUAGE_ENGLISH:
                 //  c.locale = Locale.ENGLISH;
@@ -12157,8 +12150,8 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
                 break;
             case TFTCookerConstant.LANGUAGE_TURKISH:
                 // c.locale = new Locale("tr");
-               int size= (int)tvValueHint.getTextSize();
-               LogUtil.d("the text size is "+size);
+                int size= (int)tvValueHint.getTextSize();
+                LogUtil.d("the text size is "+size);
                 tvValueHint.setTextSize(mSetPauseSize);
                 break;
             default:
@@ -12173,7 +12166,7 @@ public class CookerPanelFragment90 extends CookerPanelFragment implements Circle
         switch (language) {
             case TFTCookerConstant.LANGUAGE_ROMANIAN:
                 //   c.locale = new Locale("ro");
-               // tvValueHint.setTextSize(40.0f);
+                // tvValueHint.setTextSize(40.0f);
                 break;
             case TFTCookerConstant.LANGUAGE_ENGLISH:
                 //  c.locale = Locale.ENGLISH;
