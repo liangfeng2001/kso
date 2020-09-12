@@ -400,19 +400,13 @@ public class TrianProgressView extends View{
     public void setValue(float value) {
  //       LogUtil.d("get value from main fragment,value 1 is "+value);
         doSetValue(value, 0,false);
-        if (value < mMinSelectValue) {  // 关闭 所有炉头时，滑动条不能显示零.如果屏蔽掉，则
-           // value = mMinSelectValue;
+        if (value < mMinSelectValue) {  // 关闭 所有炉头时，滑动条不能显示零
+            value = mMinSelectValue;
         }
         if (value > mMaxSelectValue) {
-          //  value = mMaxSelectValue;
+            value = mMaxSelectValue;
         }
         if(mMaxSelectValue>10){  // 设置 分钟
-            if (value < mMinSelectValue) {  // 关闭 所有炉头时，滑动条不能显示零.如果屏蔽掉，则设置定时的分钟时，不能显示1档。
-                value = mMinSelectValue;
-            }
-            if (value > mMaxSelectValue) {
-                value = mMaxSelectValue;
-            }
             if(value==0){
                 mGetNumOfProgress=0;
             }else if(value>0&&value<6){
