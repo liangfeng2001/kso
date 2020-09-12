@@ -10891,10 +10891,10 @@ public class CookerPanelFragment60 extends CookerPanelFragment implements Circle
                         && cookerViewUpRight.getGearValue() == 0
                         && cookerViewDownRight.getGearValue() == 0) {
                     EventBus.getDefault().post(new ShowTimerCompleteOrder(ShowTimerCompleteOrder.ORDER_RESUME_STAND_BY)); // 可以锁屏
-                    LogUtil.d("go to stand by");
+                   // LogUtil.d("go to stand by");
                 } else {  // 还有炉头在工作，不能关
                     EventBus.getDefault().post(new ShowTimerCompleteOrder(ShowTimerCompleteOrder.ORDER_NO_STAND_BY));// 炉头还在工作，不可以锁屏
-                    LogUtil.d("wait stand by");
+                    //LogUtil.d("wait stand by");
                 }
                 break;
             case HANDLER_TIMER_DOING:  // 定时在进行中

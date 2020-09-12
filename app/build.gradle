@@ -7,9 +7,9 @@ android {
         applicationId "com.ekek.tftcooker"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 135
-        versionName "1.0.135"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionCode 137
+        versionName "1.0.137"
+        testInstrumentationRunner "android.supp+ort.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
                 cppFlags "-fexceptions"

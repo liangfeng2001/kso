@@ -405,7 +405,7 @@ public class MainActivity extends BaseActivity
 
     private long longClickStart = 0;
     private boolean showingErrER03 = false;
-    private static final long LONG_CLICK_DURATION_ER03 = 10 * 1000;
+    private static final long LONG_CLICK_DURATION_ER03 = 10 * 1000;  // 手指长按屏幕10秒钟
 
     private static final int RED_LIGHT = 0xffFF0000;
     private static final int RED_DARK = 0xffaa0000;

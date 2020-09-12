@@ -398,7 +398,7 @@ public class TrianProgressView extends View{
      * @param value
      */
     public void setValue(float value) {
-        LogUtil.d("get value from main fragment,value 1 is "+value);
+ //       LogUtil.d("get value from main fragment,value 1 is "+value);
         doSetValue(value, 0,false);
         if (value < mMinSelectValue) {  // 关闭 所有炉头时，滑动条不能显示零.如果屏蔽掉，则
            // value = mMinSelectValue;
@@ -441,7 +441,7 @@ public class TrianProgressView extends View{
             mGetNumOfProgress=(int)(value);
         }
      //   LogUtil.d("get value from main fragment,value 2 is "+value);
-        LogUtil.d("get value from main fragment,mMinSelectValue  is "+mMinSelectValue);
+ //       LogUtil.d("get value from main fragment,mMinSelectValue  is "+mMinSelectValue);
     }
 
     public void powerOff(){
