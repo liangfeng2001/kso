@@ -66,8 +66,8 @@ public class ProductManager {
     static final String MODEL_INFO_AAUK_FORZA_60 = "IN5.T 03 MCP.MT 04";
     static final String MODEL_INFO_AAUK_FORZA_60_TI = MODEL_INFO_AAUK_FORZA_60 + MODEL_INFO_TI_POSTFIX;
 
-    static final String MODEL_INFO_CARINY_60 = "IN5.T 05 MCP.MT 05";
-    static final String MODEL_INFO_CARINY_60_TI = MODEL_INFO_CARINY_60 + MODEL_INFO_TI_POSTFIX;
+    static final String MODEL_INFO_CARINY_90 = "IN5.T 05 MCP.MT 05";
+    static final String MODEL_INFO_CARINY_90_TI = MODEL_INFO_CARINY_90 + MODEL_INFO_TI_POSTFIX;
 
     private static ICookerPowerDataEx powerData60 = new KSO60CookerPowerDataEx();
     private static ICookerPowerDataEx powerData80 = new KSO80CookerPowerDataEx();
@@ -238,7 +238,7 @@ public class ProductManager {
                     case KF80:
                         break;
                     case KF90:
-                        returnValu= IS_TI ? MODEL_INFO_CARINY_60_TI : MODEL_INFO_CARINY_60;
+                        returnValu= IS_TI ? MODEL_INFO_CARINY_90_TI : MODEL_INFO_CARINY_90;
                         break;
                     case ASKF:
 
